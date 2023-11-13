@@ -7,22 +7,35 @@ public class Observer : MonoBehaviour
     public Transform player;
     public GameEnding gameEnding;
     bool m_IsPlayerInRange;
+    public bool isAtkBlock = false;
 
+    public void ActiveAtkBlock()
+    {
+        isAtkBlock = true;
+    }
+
+    public void CancleAtkBlock()
+    {
+        isAtkBlock = false;
+    }
 
     private void Update()
     {
         if(m_IsPlayerInRange)
         {
-            Vector3 direction = player.position - transform.position+ Vector3.up;
-            Ray ray = new Ray(transform.position, direction);
-            RaycastHit raycastHit;
-            if(Physics.Raycast(ray, out raycastHit))
+            if (isAtkBlock == false)
             {
-                if(raycastHit.collider.transform == player)
+                Vector3 direction = player.position - transform.position + Vector3.up;
+                Ray ray = new Ray(transform.position, direction);
+                RaycastHit raycastHit;
+                if (Physics.Raycast(ray, out raycastHit))
                 {
-                    gameEnding.CaughtPlayer();
+                    if (raycastHit.collider.transform == player)
+                    {
+                        gameEnding.CaughtPlayer();
+                    }
                 }
-            }
+            }     
         }
     }
 

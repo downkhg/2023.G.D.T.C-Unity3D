@@ -5841,6 +5841,11 @@ PrefabInstance:
       objectReference: {fileID: 316222501}
     - target: {fileID: 5278356110892947897, guid: 20dfce5f4fd2ff545b3f250ec69134d2,
         type: 3}
+      propertyPath: moveBlockTime
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5278356110892947897, guid: 20dfce5f4fd2ff545b3f250ec69134d2,
+        type: 3}
       propertyPath: waypoints.Array.size
       value: 2
       objectReference: {fileID: 0}
