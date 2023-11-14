@@ -75,17 +75,20 @@ namespace TextRPG
         {
             int nMonsterHP = 50;//100 //2. 100 
             int nPlayerAtk = 15; //10 //3. 10
-            while (nMonsterHP >= 0) //1 //9
+            bool isLoop = true; 
+            while (isLoop) //1 //9
             {
                 //if (nMonsterHP <= 0) //4. 100 == 0 :F //10. 90 == 0 :F
                 //    break; 
-                if (nMonsterHP >= 0)
+                if (nMonsterHP >= 0) //종료조건의 반대되는 조건으로 동작의 조건을 설정한다.
                 {
                     Console.WriteLine("플레이어의 공격력:{0}", nPlayerAtk); //10 //5. 10
                     Console.WriteLine("몬스터의 체력:{0}", nMonsterHP); //100 //6. 100
                     nMonsterHP = nMonsterHP - nPlayerAtk; // 100 - 10 = 90 //7.
                     Console.WriteLine("남은 몬스터의 체력:{0}", nMonsterHP); //90 //8. 90
                 }
+                else
+                    isLoop = false;
             }
         }
     }
