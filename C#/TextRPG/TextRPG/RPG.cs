@@ -76,6 +76,41 @@ namespace TextRPG
                 }
             }
         }
+
+        public static void Battle(Player player, Player monster)
+        {
+            while (true)
+            {
+                if (player.Death() == false) //플레이어가 살아있다면,
+                {
+                    Console.WriteLine("##### 플레이어의 공격 #######");
+
+                    Console.WriteLine("플레이어의 공격력:{0}", player.m_nAtk);
+                    Console.WriteLine("몬스터의 체력:{0}", monster.m_nHp);
+                    if (monster.Death() == false) //if (monster.m_nHp <= 0)  break;
+                        player.Attack(monster);
+                    Console.WriteLine("남은 몬스터의 체력:{0}", monster.m_nHp);
+                }
+                else
+                {
+                    Console.WriteLine("##### 몬스터 승리! #####");
+                    break;
+                }
+                if (!monster.Death()) //몬스터가 살아있다면,
+                {
+                    Console.WriteLine("##### 몬스터의 반격 #######");
+                    Console.WriteLine("플레이어의 공격력:{0}", monster.m_nAtk);
+                    Console.WriteLine("몬스터의 체력:{0}", player.m_nHp);
+                    if (!player.Death())
+                        monster.Attack(player);
+                    Console.WriteLine("남은 플레이어의 체력:{0}", player.m_nHp);
+                }
+                else
+                {
+                    Console.WriteLine("##### 플레이어 승리! #####");
+                    break;
+                }
+            }
+        }
     }
-}
 }
