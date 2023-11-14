@@ -31,7 +31,8 @@ namespace TextRPG
             //ValMain();
             //PlayerAttackMonsterMain();
             //PlayerAttackCritcalMain();
-            PlayerAttackWihleMain();
+            //PlayerAttackWihleMain();
+            BattleMain();
         }//4
         //플레이어가 몬스터를 (공격)한다.
         //플레이어가 몬스터를 몬스터의 hp가 감소 한다. -> 얼만큼 감소되는가? -> 플레이어의 데미지만큼
@@ -89,6 +90,74 @@ namespace TextRPG
                 }
                 else
                     isLoop = false;
+            }
+        }
+        //플레이어가 몬스터를 공격한다.
+        //몬스터는 플레이어를 반격한다.
+        //반격: 공격을 받고나서 공격한 대상을 공격한다.
+        //플레이어의 hp, 몬스터의 공격력
+        static void BattleMain()
+        {
+            int nPlayerAtk = 10; //10
+            int nPlayerHP = 100;//100
+
+            int nMonsterHP = 100;//100
+            int nMonsterAtk = 10; //10
+
+            while (true)
+            {
+                if (nPlayerHP > 0) //플레이어가 살아있다면,
+                {
+                    Console.WriteLine("##### 플레이어의 공격 #######");
+
+                    Console.WriteLine("플레이어의 공격력:{0}", nPlayerAtk);
+                    Console.WriteLine("몬스터의 체력:{0}", nMonsterHP);
+
+                    if (nMonsterHP <= 0)
+                        break;
+                    Random cRandom = new Random(); //? 
+                    int nRandom = 0;// cRandom.Next(0, 3); //1. 1// 2// 3//
+                    Console.WriteLine("Random:{0}", nRandom);
+                    if (nRandom == 1) //2. 1 == 1:T //2 == 1 : F //3 == 1 : F
+                    {
+                        nMonsterHP = nMonsterHP - (nPlayerAtk + 10); // 100 - 10 = 90 //3. //3.
+                        Console.WriteLine("Ciritcal Attcka!");
+                    }
+                    else //3.
+                        nMonsterHP = nMonsterHP - nPlayerAtk; // 100 - 10 = 90
+                    Console.WriteLine("남은 몬스터의 체력:{0}", nMonsterHP);
+                }
+                else
+                {
+                    Console.WriteLine("##### 몬스터 승리! #####");
+                    break;
+                }
+                if (nMonsterHP > 0) //몬스터가 살아있다면,
+                {
+                    Console.WriteLine("##### 몬스터의 반격 #######");
+                    Console.WriteLine("플레이어의 공격력:{0}", nMonsterAtk);
+                    Console.WriteLine("몬스터의 체력:{0}", nPlayerHP);
+
+                    if (nPlayerHP <= 0)
+                        break;
+
+                    Random cRandom = new Random(); //? 
+                    int nRandom = 1;// cRandom.Next(0, 3); //1. 1// 2// 3//
+                    Console.WriteLine("Random:{0}", nRandom);
+                    if (nRandom == 1) //2. 1 == 1:T //2 == 1 : F //3 == 1 : F
+                    {
+                        nPlayerHP = nPlayerHP - (nMonsterAtk + 100); // 100 - 10 = 90 //3. //3.
+                        Console.WriteLine("Ciritcal Attcka!");
+                    }
+                    else //3.
+                        nPlayerHP = nPlayerHP - nMonsterAtk; // 100 - 10 = 90
+                    Console.WriteLine("남은 플레이어의 체력:{0}", nPlayerHP);
+                }
+                else
+                {
+                    Console.WriteLine("##### 플레이어 승리! #####");
+                    break;
+                }
             }
         }
     }
