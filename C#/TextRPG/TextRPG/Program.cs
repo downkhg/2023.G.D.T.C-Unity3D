@@ -32,7 +32,8 @@ namespace TextRPG
             //PlayerAttackMonsterMain();
             //PlayerAttackCritcalMain();
             //PlayerAttackWihleMain();
-            BattleMain();
+            //BattleMain();
+            RPG.BattleMain();
         }//4
         //플레이어가 몬스터를 (공격)한다.
         //플레이어가 몬스터를 몬스터의 hp가 감소 한다. -> 얼만큼 감소되는가? -> 플레이어의 데미지만큼
