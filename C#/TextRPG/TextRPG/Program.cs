@@ -34,6 +34,7 @@ namespace TextRPG
             //PlayerAttackWihleMain();
             //BattleMain();
             //RPG.BattleMain();
+            RPGGameMain();
         }//4
         //플레이어가 몬스터를 (공격)한다.
         //플레이어가 몬스터를 몬스터의 hp가 감소 한다. -> 얼만큼 감소되는가? -> 플레이어의 데미지만큼
@@ -164,10 +165,34 @@ namespace TextRPG
 
         static void RPGGameMain()
         {
-            Player player = new Player();
-            Player monster = new Player();
+            Player player = new Player("player",10,100);
 
-            RPG.Battle(player, monster);
+            Player slime = new Player("slime",20,50);
+            Player zombie = new Player("zombie",20,100);
+            Player skeleton = new Player("skeleton",30,200);
+
+            slime.SetItemSlot(new Item("힐링포션(소)", 10));
+            zombie.SetItemSlot(new Item("힐링포션(중)", 50));
+            skeleton.SetItemSlot(new Item("힐링포션(대)", 100));
+
+            string strSelectFiled = "";
+
+            Console.Write("장소이름을 입력하세요.(숲,무덤,던전)");
+            strSelectFiled = Console.ReadLine();
+
+            Console.WriteLine("{0}에 들어갔습니다.",strSelectFiled);
+            switch(strSelectFiled)
+            {
+                case "숲":
+                    RPG.Battle(player, slime);
+                    break;
+                case "무덤":
+                    RPG.Battle(player, zombie);
+                    break;
+                case "던전":
+                    RPG.Battle(player, skeleton);
+                    break;
+            }  
         }
     }
 }
