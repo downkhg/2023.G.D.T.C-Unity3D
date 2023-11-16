@@ -10,11 +10,13 @@ namespace TextRPG
     {
         public string m_strName;
         public int m_nRecovery;
+        public int m_nPrice;
 
-        public Item(string name, int recovery)
+        public Item(string name, int recovery, int price)
         {
             m_nRecovery = recovery;
             m_strName = name;
+            m_nPrice = price;
         }
     }
 
@@ -24,6 +26,54 @@ namespace TextRPG
         public string m_strName;
         public int m_nAtk;
         public int m_nHp;
+
+        public int m_nGold;
+
+        public List<Item> m_listIventory;
+
+        public void SetIventoryItem(Item item)
+        {
+            m_listIventory.Add(item);
+        }
+
+        public Item GetIvenventoryItemIdx(int idx)
+        {
+            return m_listIventory[idx];
+        }
+
+        public void RemoveIvemtoryItem(Item item)
+        {
+            m_listIventory.Remove(item);
+        }
+
+        public void UseIventoryItem(int idx)
+        {
+            Item item = m_listIventory[idx];
+            if(item != null)
+                m_nHp += item.m_nRecovery;
+            m_listIventory.Remove(item);
+        }
+
+        public void StoreBuy(Player store, int selectIdx)
+        {
+            Item temp = store.GetIvenventoryItemIdx(selectIdx);
+            if (m_nGold >= temp.m_nPrice)
+            {
+                this.SetIventoryItem(temp);
+                m_nGold -= temp.m_nPrice;
+            }
+        }
+
+        public void Sell(Player target, int selectIdx)
+        {
+            Item item = this.GetIvenventoryItemIdx(selectIdx);
+            if(target.m_nGold >= item.m_nPrice)
+            {
+                target.SetIventoryItem(item);
+                target.m_nGold -= item.m_nPrice;
+                this.RemoveIvemtoryItem(item);
+            }
+        }
 
         public Item m_cItemSlot;
 

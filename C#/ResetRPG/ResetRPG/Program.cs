@@ -48,18 +48,18 @@ namespace ResetRPG
             {
                 string strInput;
 
-                Console.WriteLine("행동을 선택하세요!");
-                strInput = Console.ReadLine();
-                if (strInput == "공격")
+                //Console.WriteLine("행동을 선택하세요!");
+                //strInput = Console.ReadLine();
+                //if (strInput == "공격")
                 {
                     player.Display("가 공격했다!");
                     player.Attack(monster);
                 }
-                else
-                {
-                    player.UseItemSlot();
-                    player.Display("가 아이템을 사용했다!");
-                }
+                //else
+                //{
+                //    player.UseItemSlot();
+                //    player.Display("가 아이템을 사용했다!");
+                //}
 
                 monster.Display("이 피해를 입었다!");
                 if (monster.Death())
