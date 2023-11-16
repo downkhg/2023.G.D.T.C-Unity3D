@@ -73,7 +73,7 @@ namespace TextRPG
 
     class Item
     {
-        public enum E_ITEM_CATEGORY { CONSUMABLE, EQUMENT, ACTIVE }
+        public enum E_ITEM_CATEGORY { CONSUMABLE, EQUMENT_WEAPON, EQUMENT_ARMOR, EQUMENT_ACC, ACTIVE }
         public E_ITEM_CATEGORY m_eCategory;
         public string m_strName;
         public Status m_sStatus;
@@ -102,8 +102,44 @@ namespace TextRPG
                 case E_ITEM_CATEGORY.CONSUMABLE:
                     target.Consumable(m_sStatus);
                     break;
-                case E_ITEM_CATEGORY.EQUMENT:
-                    
+                case E_ITEM_CATEGORY.EQUMENT_WEAPON:
+                    if (target.m_llistEqument[(int)Player.E_EQUMENT_TYPE.WEAPON] == null)
+                    {
+                        target.m_llistEqument[(int)Player.E_EQUMENT_TYPE.WEAPON] = this;
+                        target.m_sStatus += this.m_sStatus;
+                    }
+                    else
+                    {
+                        target.SetIventoryItem(target.m_llistEqument[(int)Player.E_EQUMENT_TYPE.WEAPON]);
+                        target.m_sStatus -= this.m_sStatus;
+                        target.m_llistEqument[(int)Player.E_EQUMENT_TYPE.WEAPON] = null;
+                    }
+                    break;
+                case E_ITEM_CATEGORY.EQUMENT_ARMOR:
+                    if (target.m_llistEqument[(int)Player.E_EQUMENT_TYPE.ARMOR] == null)
+                    {
+                        target.m_llistEqument[(int)Player.E_EQUMENT_TYPE.ARMOR] = this;
+                        target.m_sStatus += this.m_sStatus;
+                    }
+                    else
+                    {
+                        target.SetIventoryItem(target.m_llistEqument[(int)Player.E_EQUMENT_TYPE.ARMOR]);
+                        target.m_sStatus -= this.m_sStatus;
+                        target.m_llistEqument[(int)Player.E_EQUMENT_TYPE.ARMOR] = null;
+                    }
+                    break;
+                case E_ITEM_CATEGORY.EQUMENT_ACC:
+                    if (target.m_llistEqument[(int)Player.E_EQUMENT_TYPE.ACC] == null)
+                    {
+                        target.m_llistEqument[(int)Player.E_EQUMENT_TYPE.ACC] = this;
+                        target.m_sStatus += this.m_sStatus;
+                    }
+                    else
+                    {
+                        target.SetIventoryItem(target.m_llistEqument[(int)Player.E_EQUMENT_TYPE.ACC]);
+                        target.m_sStatus -= this.m_sStatus;
+                        target.m_llistEqument[(int)Player.E_EQUMENT_TYPE.ACC] = null;
+                    }
                     break;
                 case E_ITEM_CATEGORY.ACTIVE:
                     break;
@@ -120,6 +156,14 @@ namespace TextRPG
         public int m_nMp;
 
         public int m_nGold;
+
+        public enum E_EQUMENT_TYPE { WEAPON, ARMOR, ACC, MAX }
+        public List<Item> m_llistEqument = new List<Item>((int)E_EQUMENT_TYPE.MAX);
+
+        public void SetEqumentType(Item item)
+        {
+            item.Use(this);
+        }
 
         public void Consumable(Status status)
         {
@@ -228,6 +272,11 @@ namespace TextRPG
             m_nMp = mp;
             m_strName = name;
             m_nGold = gold;
+
+            for(int i = 0;  i < m_llistEqument.Capacity; i++)
+            {
+                m_llistEqument.Add(null);
+            }
         }
 
         public void Demeged(int demage)
@@ -267,6 +316,14 @@ namespace TextRPG
                 Console.WriteLine("아이템슬롯:{0}", m_cItemSlot.m_strName);
             else
                 Console.WriteLine("아이템슬롯: 비었음");
+            Console.WriteLine("# 장비함 #", m_strName, msg);
+            for(E_EQUMENT_TYPE e = E_EQUMENT_TYPE.WEAPON; e < E_EQUMENT_TYPE.MAX; e++)
+            {
+                if(m_llistEqument[(int)e] != null)
+                    Console.WriteLine("{0}:{1}", e.ToString(), m_llistEqument[(int)e].m_strName);
+                else
+                    Console.WriteLine("{0}:비었음", e.ToString());
+            }
             foreach (var c in m_strName) Console.Write("#");
             foreach (var c in msg) Console.Write("#");
             Console.WriteLine();

@@ -33,31 +33,8 @@ namespace ResetRPG
             TextRPGMain();
             //TestStoreMain();
         }
-        static void TestStoreMain()
-        {
-            Player player = new Player("player", 100, 20 ,10, 0, 100);
-            Player npc = new Player("store", 100, 20, 10, 0, 100);
-
-            npc.SetIventoryItem(new Item("힐링포션(소)", 10, 0, 0, 0, 10));
-            npc.SetIventoryItem(new Item("힐링포션(중)", 50, 0, 0, 0, 50));
-            npc.SetIventoryItem(new Item("힐링포션(대)", 100, 0, 0, 0, 100));
-
-            npc.DisplayIventory("의 상점 목록(선택할 아이템의 번호를 입력하세요");
-            string strInputText = Console.ReadLine();
-            int nSelectIdx = int.Parse(strInputText);
-
-            player.StoreBuy(npc, nSelectIdx);
-           
-
-            player.DisplayIventory("의 인벤토리");
-            npc.DisplayIventory("의 인벤토리");
-
-            player.Sell(npc, 0);
-            player.DisplayIventory("의 인벤토리");
-            npc.DisplayIventory("의 인벤토리");
-        }
-
-        enum E_ITEM { HPPOSTION_S,HPPOSTION_M,HPPOSTION_L }
+       
+        enum E_ITEM { HPPOSTION_S,HPPOSTION_M,HPPOSTION_L, WOOD_WEAPON, WOOD_ARMOR, WOOD_RING }
         static void TextRPGMain()
         {
             Player player;
@@ -72,20 +49,27 @@ namespace ResetRPG
             m_listItemManager.Add(new Item(Item.E_ITEM_CATEGORY.CONSUMABLE, "힐링포션(소)", 10, 0, 0, 0, 10)); //0
             m_listItemManager.Add(new Item(Item.E_ITEM_CATEGORY.CONSUMABLE, "힐링포션(중)", 50, 0, 0, 0, 50)); //1
             m_listItemManager.Add(new Item(Item.E_ITEM_CATEGORY.CONSUMABLE, "힐링포션(대)", 100, 0, 0, 0, 100)); //2
+            m_listItemManager.Add(new Item(Item.E_ITEM_CATEGORY.CONSUMABLE, "목검", 0, 0, 10, 0, 100)); //2
+            m_listItemManager.Add(new Item(Item.E_ITEM_CATEGORY.CONSUMABLE, "나무갑옷", 0, 0, 0, 10, 100)); //2
+            m_listItemManager.Add(new Item(Item.E_ITEM_CATEGORY.CONSUMABLE, "나무반지", 20, 0, 0, 0, 100)); //2
 
             Player npc = new Player("store", 100, 20, 10, 0);
 
             foreach(var item in m_listItemManager)
                 npc.SetIventoryItem(item);
-  
+            
             player.SetItemSlot(m_listItemManager[(int)E_ITEM.HPPOSTION_S]);
             monster.SetItemSlot(m_listItemManager[(int)E_ITEM.HPPOSTION_S]);
+
+            player.SetIventoryItem(m_listItemManager[(int)E_ITEM.WOOD_WEAPON]);
+            player.SetIventoryItem(m_listItemManager[(int)E_ITEM.WOOD_ARMOR]);
+            player.SetIventoryItem(m_listItemManager[(int)E_ITEM.WOOD_RING]);
 
             string strSelectFiled = "";
 
             while (true)
             {
-                Console.Write("장소이름을 입력하세요.(상점, 필드)");
+                Console.Write("장소이름을 입력하세요.(상점,장비함, 필드)");
                 strSelectFiled = Console.ReadLine();
 
                 Console.WriteLine("{0}에 들어갔습니다.", strSelectFiled);
@@ -94,11 +78,24 @@ namespace ResetRPG
                     case "상점":
                         Store(player, npc);
                         break;
+                    case "장비함":
+                        Iventory(player);
+                        break;
                     case "필드":
                         Battle(player, monster);
                         break;
                 }
             }
+        }
+
+        static void Iventory(Player player)
+        {
+            player.DisplayIventory("의 인벤토리");
+            string strInputText = Console.ReadLine();
+            int nSelectIdx = int.Parse(strInputText);
+            Item selectItem = player.GetIvenventoryItemIdx(nSelectIdx);
+            if (selectItem != null) selectItem.Use(player); 
+            player.Display("의 장비함");
         }
 
         static void Store(Player player, Player npc)
