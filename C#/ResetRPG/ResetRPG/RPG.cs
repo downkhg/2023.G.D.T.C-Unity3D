@@ -39,10 +39,18 @@ namespace TextRPG
             return temp;
         }
 
-        public void UseItemSlot(Item item)
+        public void UseItemSlot()
         {
-            m_nHp += m_cItemSlot.m_nRecovery;
-            m_cItemSlot = null;
+            if (m_cItemSlot != null)
+            {
+                Console.WriteLine("{0} 사용", m_cItemSlot );
+                m_nHp += m_cItemSlot.m_nRecovery;
+                m_cItemSlot = null;
+            }
+            else
+            {
+                Console.WriteLine("아이템이 없습니다.");
+            }
         }
 
         public Player(string name, int atk, int hp)
@@ -81,6 +89,10 @@ namespace TextRPG
             Console.WriteLine("# {0} {1} #", m_strName, msg);
             Console.WriteLine("공격력: {0} ", m_nAtk);
             Console.WriteLine("체력: {0} ", m_nHp);
+            if(m_cItemSlot != null)
+                Console.WriteLine("아이템슬롯:{0}", m_cItemSlot.m_strName);
+            else
+                Console.WriteLine("아이템슬롯: 비었음");
             foreach (var c in m_strName) Console.Write("#");
             foreach (var c in msg) Console.Write("#");
             Console.WriteLine();

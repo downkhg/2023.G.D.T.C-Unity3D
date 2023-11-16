@@ -10,6 +10,8 @@
 4. 몬스터와 전투에서 활용 가능 하도록 만든다
 5. 아이템의 구매와 판매를 구현한다 -> NPC가 필요하다.
 -NPC의 상점목록을 구현하기위해 인벤토리 필요.
+->인벤토리 아이템들을 여러개 저장하는 곳 -> 배열,리스트
+->NPC -> Player추가 해야한다.
 -상점목록에서 구매하면 인벤토리에 아이템이 삭제되지않는다.
 -거래기능은 아이템이 삭제되고 구매한 대상에게 아이템을 준다.
 6.렙업요소 구현하기.
@@ -36,17 +38,36 @@ namespace ResetRPG
             Player player;
             Player monster;
 
-            player = new Player("player", 10, 30);
-            monster = new Player("slime", 10, 30);
+            player = new Player("player", 10, 20);
+            monster = new Player("slime", 10, 20);
+
+            player.SetItemSlot(new Item("힐링포션(소)", 10));
+            monster.SetItemSlot(new Item("힐링포션(소)",10));
 
             while (true)
             {
-                player.Display("가 공격했다!");
-                player.Attack(monster);
+                string strInput;
+
+                Console.WriteLine("행동을 선택하세요!");
+                strInput = Console.ReadLine();
+                if (strInput == "공격")
+                {
+                    player.Display("가 공격했다!");
+                    player.Attack(monster);
+                }
+                else
+                {
+                    player.UseItemSlot();
+                    player.Display("가 아이템을 사용했다!");
+                }
+
                 monster.Display("이 피해를 입었다!");
                 if (monster.Death())
                 {
                     monster.Display("이 패배했다.");
+                    Item item = monster.ReleaseItem();
+                    player.SetItemSlot(item);
+                    player.Display("가 아이템을 획득했다!");
                     break;
                 }
 
