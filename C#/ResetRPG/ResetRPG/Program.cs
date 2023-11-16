@@ -49,9 +49,9 @@ namespace ResetRPG
             m_listItemManager.Add(new Item(Item.E_ITEM_CATEGORY.CONSUMABLE, "힐링포션(소)", 10, 0, 0, 0, 10)); //0
             m_listItemManager.Add(new Item(Item.E_ITEM_CATEGORY.CONSUMABLE, "힐링포션(중)", 50, 0, 0, 0, 50)); //1
             m_listItemManager.Add(new Item(Item.E_ITEM_CATEGORY.CONSUMABLE, "힐링포션(대)", 100, 0, 0, 0, 100)); //2
-            m_listItemManager.Add(new Item(Item.E_ITEM_CATEGORY.CONSUMABLE, "목검", 0, 0, 10, 0, 100)); //2
-            m_listItemManager.Add(new Item(Item.E_ITEM_CATEGORY.CONSUMABLE, "나무갑옷", 0, 0, 0, 10, 100)); //2
-            m_listItemManager.Add(new Item(Item.E_ITEM_CATEGORY.CONSUMABLE, "나무반지", 20, 0, 0, 0, 100)); //2
+            m_listItemManager.Add(new Item(Item.E_ITEM_CATEGORY.EQUMENT_WEAPON, "목검", 0, 0, 10, 0, 100)); //2
+            m_listItemManager.Add(new Item(Item.E_ITEM_CATEGORY.EQUMENT_ARMOR, "나무갑옷", 0, 0, 0, 10, 100)); //2
+            m_listItemManager.Add(new Item(Item.E_ITEM_CATEGORY.EQUMENT_ACC, "나무반지", 20, 0, 0, 0, 100)); //2
 
             Player npc = new Player("store", 100, 20, 10, 0);
 
@@ -94,7 +94,8 @@ namespace ResetRPG
             string strInputText = Console.ReadLine();
             int nSelectIdx = int.Parse(strInputText);
             Item selectItem = player.GetIvenventoryItemIdx(nSelectIdx);
-            if (selectItem != null) selectItem.Use(player); 
+            if (selectItem != null) 
+                selectItem.Use(player); 
             player.Display("의 장비함");
         }
 

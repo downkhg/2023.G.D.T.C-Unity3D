@@ -107,6 +107,7 @@ namespace TextRPG
                     {
                         target.m_llistEqument[(int)Player.E_EQUMENT_TYPE.WEAPON] = this;
                         target.m_sStatus += this.m_sStatus;
+                        target.RemoveIvemtoryItem(target.m_llistEqument[(int)Player.E_EQUMENT_TYPE.WEAPON]);
                     }
                     else
                     {
@@ -120,6 +121,7 @@ namespace TextRPG
                     {
                         target.m_llistEqument[(int)Player.E_EQUMENT_TYPE.ARMOR] = this;
                         target.m_sStatus += this.m_sStatus;
+                        target.RemoveIvemtoryItem(target.m_llistEqument[(int)Player.E_EQUMENT_TYPE.ARMOR]);
                     }
                     else
                     {
@@ -133,6 +135,7 @@ namespace TextRPG
                     {
                         target.m_llistEqument[(int)Player.E_EQUMENT_TYPE.ACC] = this;
                         target.m_sStatus += this.m_sStatus;
+                        target.RemoveIvemtoryItem(target.m_llistEqument[(int)Player.E_EQUMENT_TYPE.ACC]);
                     }
                     else
                     {
