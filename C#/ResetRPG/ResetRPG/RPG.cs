@@ -54,17 +54,21 @@ namespace TextRPG
             m_listIventory.Remove(item);
         }
 
-        public void StoreBuy(Player store, int selectIdx)
+        public bool StoreBuy(Player store, int selectIdx)
         {
-            Item temp = store.GetIvenventoryItemIdx(selectIdx);
-            if (m_nGold >= temp.m_nPrice)
+            Item item = store.GetIvenventoryItemIdx(selectIdx);
+            if (m_nGold >= item.m_nPrice)
             {
-                this.SetIventoryItem(temp);
-                m_nGold -= temp.m_nPrice;
+                this.SetIventoryItem(item);
+                m_nGold -= item.m_nPrice;
+                Console.WriteLine("{0}의 거래가 하여 {1}을 소모했습니다!", item.m_strName, item.m_nPrice);
+                return true;
             }
+            Console.WriteLine("소지금이 부족합니다!");
+            return false;
         }
 
-        public void Sell(Player target, int selectIdx)
+        public bool Sell(Player target, int selectIdx)
         {
             Item item = this.GetIvenventoryItemIdx(selectIdx);
             if(target.m_nGold >= item.m_nPrice)
@@ -72,7 +76,12 @@ namespace TextRPG
                 target.SetIventoryItem(item);
                 target.m_nGold -= item.m_nPrice;
                 this.RemoveIvemtoryItem(item);
+                this.m_nGold += item.m_nPrice;
+                Console.WriteLine("{0}의 거래가 되어 {1}을 얻었습니다!", item.m_strName, item.m_nPrice);
+                return true;
             }
+            Console.WriteLine("{0}의 소지금이 부족합니다!", target.m_strName);
+            return false;
         }
 
         public Item m_cItemSlot;
@@ -151,11 +160,12 @@ namespace TextRPG
 
         public void DisplayIventory(string msg = "")
         {
-            Console.WriteLine("# {0}  #", m_strName, msg);
+            Console.WriteLine("# {0} {1} #", m_strName, msg);
             for (int i = 0; i < m_listIventory.Count; i++)
             {
                 Console.WriteLine("[{0}]:{1}", i, m_listIventory[i].m_strName);
             }
+            Console.WriteLine("Gold:{0}", m_nGold);
         }
     }
 

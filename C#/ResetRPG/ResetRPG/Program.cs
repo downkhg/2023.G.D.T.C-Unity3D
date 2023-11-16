@@ -35,8 +35,8 @@ namespace ResetRPG
         }
         static void TestStoreMain()
         {
-            Player player = new Player("player", 10, 20);
-            Player npc = new Player("store", 10, 20);
+            Player player = new Player("player", 10, 20, 100);
+            Player npc = new Player("store", 10, 20, 100);
 
             npc.SetIventoryItem(new Item("힐링포션(소)", 10, 10));
             npc.SetIventoryItem(new Item("힐링포션(중)", 50, 50));
@@ -50,6 +50,7 @@ namespace ResetRPG
            
 
             player.DisplayIventory("의 인벤토리");
+            npc.DisplayIventory("의 인벤토리");
 
             player.Sell(npc, 0);
             player.DisplayIventory("의 인벤토리");
