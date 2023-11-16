@@ -4,19 +4,110 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+//아이템의 요구사항
+//장비템, 소모템 -> 능력치가 변화한다. -> 능력치 객체화한다.
+
 namespace TextRPG
 {
+    class Status
+    {
+        public int nHP;
+        public int nMP;
+        public int nStr;
+        public int nDef;
+
+        public Status(int nHP = 0, int nMP = 0, int nStr = 0, int nDef = 0)
+        {
+            this.nHP = nHP;
+            this.nMP = nMP;
+            this.nStr = nStr;
+            this.nDef = nDef;
+        }
+
+        public Status(Status status)
+        {
+            nHP = status.nHP;
+            nMP = status.nMP;
+            nStr = status.nStr;
+            nDef = status.nDef;
+        }
+
+        public Status Add(Status b)
+        {
+            Status temp = new Status();
+            temp.nHP = this.nHP + b.nHP;
+            temp.nMP = this.nMP + b.nMP;
+            temp.nStr = this.nStr + b.nStr;
+            temp.nDef = this.nDef + b.nDef;
+            return temp;
+        }
+
+        public static Status operator+(Status a, Status b)
+        {
+            Status temp = new Status();
+            temp.nHP = a.nHP + b.nHP;
+            temp.nMP = a.nMP + b.nMP;
+            temp.nStr = a.nStr + b.nStr;
+            temp.nDef = a.nDef + b.nDef;
+            return temp;
+        }
+
+        public static Status operator -(Status a, Status b)
+        {
+            Status temp = new Status();
+            temp.nHP = a.nHP - b.nHP;
+            temp.nMP = a.nMP - b.nMP;
+            temp.nStr = a.nStr - b.nStr;
+            temp.nDef = a.nDef - b.nDef;
+            return temp;
+        }
+
+        public void Display()
+        {
+            Console.WriteLine("HP{0}",nHP);
+            Console.WriteLine("MP{0}", nMP);
+            Console.WriteLine("Str{0}", nStr);
+            Console.WriteLine("Def{0}", nDef);
+        }
+    }
+
     class Item
     {
+        public enum E_ITEM_CATEGORY { CONSUMABLE, EQUMENT, ACTIVE }
+        public E_ITEM_CATEGORY m_eCategory;
         public string m_strName;
-        public int m_nRecovery;
+        public Status m_sStatus;
         public int m_nPrice;
 
-        public Item(string name, int recovery, int price)
+        public Item(E_ITEM_CATEGORY eCategory, string name, Status status, int price)
         {
-            m_nRecovery = recovery;
+            m_eCategory = eCategory;
+            m_sStatus = new Status(status);
             m_strName = name;
             m_nPrice = price;
+        }
+
+        public Item(E_ITEM_CATEGORY eCategory, string name,int hp, int mp, int str, int def, int price)
+        {
+            m_eCategory = eCategory;
+            m_sStatus = new Status(hp, mp, str, def);
+            m_strName = name;
+            m_nPrice = price;
+        }
+
+        public void Use(Player target)
+        {
+            switch(m_eCategory)
+            {
+                case E_ITEM_CATEGORY.CONSUMABLE:
+                    target.Consumable(m_sStatus);
+                    break;
+                case E_ITEM_CATEGORY.EQUMENT:
+                    
+                    break;
+                case E_ITEM_CATEGORY.ACTIVE:
+                    break;
+            }
         }
     }
 
@@ -24,10 +115,27 @@ namespace TextRPG
     {
         //변수(속성): 변경될수있는 값.
         public string m_strName;
-        public int m_nAtk;
+        public Status m_sStatus;
         public int m_nHp;
+        public int m_nMp;
 
         public int m_nGold;
+
+        public void Consumable(Status status)
+        {
+            m_nHp += status.nHP;
+            m_nMp += status.nMP;
+        }
+
+        public void SetEqument(Status status)
+        {
+            m_sStatus += status;
+        }
+
+        public void ReleaseEqument(Player target)
+        {
+            target.m_sStatus -= m_sStatus;
+        }
 
         public List<Item> m_listIventory = new List<Item>();
 
@@ -49,8 +157,8 @@ namespace TextRPG
         public void UseIventoryItem(int idx)
         {
             Item item = m_listIventory[idx];
-            if(item != null)
-                m_nHp += item.m_nRecovery;
+            if (item != null)
+                item.Use(this);
             m_listIventory.Remove(item);
         }
 
@@ -103,7 +211,7 @@ namespace TextRPG
             if (m_cItemSlot != null)
             {
                 Console.WriteLine("{0} 사용", m_cItemSlot );
-                m_nHp += m_cItemSlot.m_nRecovery;
+                m_sStatus += m_cItemSlot.m_sStatus;
                 m_cItemSlot = null;
             }
             else
@@ -112,12 +220,19 @@ namespace TextRPG
             }
         }
 
-        public Player(string name, int atk, int hp, int gold = 999999999)
+       
+        public Player(string name,int hp,int mp, int str, int def, int gold = 999999999)
         {
-            m_nAtk = atk;
+            m_sStatus = new Status(hp, mp, str, def);
             m_nHp = hp;
+            m_nMp = mp;
             m_strName = name;
             m_nGold = gold;
+        }
+
+        public void Demeged(int demage)
+        {
+            this.m_sStatus.nHP -= demage; 
         }
 
         //함수(동작): 객체가 하는 행동의 알고리즘을 함수화 한것.
@@ -125,14 +240,14 @@ namespace TextRPG
         {
             Random cRandom = new Random(); //? 
             int nRandom = 0;// cRandom.Next(0, 3); //1. 1// 2// 3//
+            float fDamage = m_sStatus.nStr;
             Console.WriteLine("Random:{0}", nRandom);
             if (nRandom == 1) //2. 1 == 1:T //2 == 1 : F //3 == 1 : F
             {
-                target.m_nHp = target.m_nHp - (this.m_nAtk + 10); // 100 - 10 = 90 //3. //3.
+                fDamage = fDamage*1.5f;
                 Console.WriteLine("Ciritcal Attcka!");
             }
-            else //3.
-                target.m_nHp = target.m_nHp - this.m_nAtk; // 100 - 10 = 90
+            target.Demeged((int)fDamage);
         }
         //인터페이스(접근방식): 인간은 값을 일일히 확인하여 사고하는데 익숙하지않다. 이를 함수화하여 제공하면 이를 인터페이스라고 부른다. 
         //죽었다는것은 행동으로 보기 어려우나, 인간의 사고과정에 맞춰서 생각하 쉽게 만든다.
@@ -147,8 +262,7 @@ namespace TextRPG
         public void Display(string msg = "")
         {
             Console.WriteLine("# {0} {1} #", m_strName, msg);
-            Console.WriteLine("공격력: {0} ", m_nAtk);
-            Console.WriteLine("체력: {0} ", m_nHp);
+            m_sStatus.Display();
             if(m_cItemSlot != null)
                 Console.WriteLine("아이템슬롯:{0}", m_cItemSlot.m_strName);
             else
@@ -171,86 +285,6 @@ namespace TextRPG
 
     internal class RPG
     {
-        public static void BattleMain()
-        {
-            Player player = new Player("player", 10, 100);
-            Player monster = new Player("monster", 10, 100);
-
-            while (true)
-            {
-                if (player.Death() == false) //플레이어가 살아있다면,
-                {
-                    Console.WriteLine("##### " + player.m_strName + "의 공격 #######");
-
-                    Console.WriteLine("" + player.m_strName + "의 공격력:{0}", player.m_nAtk);
-                    Console.WriteLine("" + monster.m_strName + "의 체력:{0}", monster.m_nHp);
-                    if (monster.Death() == false) //if (monster.m_nHp <= 0)  break;
-                        player.Attack(monster);
-                    Console.WriteLine("남은 " + monster.m_strName + "의 체력:{0}", monster.m_nHp);
-                }
-                else
-                {
-                    Console.WriteLine("##### " + monster.m_strName + " 승리! #####");
-                    break;
-                }
-                if (!monster.Death()) //몬스터가 살아있다면,
-                {
-                    Console.WriteLine("##### " + monster.m_strName + "의 반격 #######");
-                    Console.WriteLine("" + player.m_strName + "의 공격력:{0}", monster.m_nAtk);
-                    Console.WriteLine("" + monster.m_strName + "의 체력:{0}", player.m_nHp);
-                    if (!player.Death())
-                        monster.Attack(player);
-                    Console.WriteLine("남은 " + player.m_strName + "의 체력:{0}", player.m_nHp);
-                }
-                else
-                {
-                    Console.WriteLine("##### " + player.m_strName + " 승리! #####");
-                    break;
-                }
-            }
-        }
-
-        public static void Battle(Player player, Player monster)
-        {
-            while (true)
-            {
-                if (player.Death() == false) //플레이어가 살아있다면,
-                {
-                    Console.WriteLine("##### {0}의 공격 #######", player.m_strName);
-
-                    Console.WriteLine("" + player.m_strName + "의 공격력:{0}", player.m_nAtk);
-                    Console.WriteLine("" + monster.m_strName + "의 체력:{0}", monster.m_nHp);
-                    if (monster.Death() == false) //if (monster.m_nHp <= 0)  break;
-                        player.Attack(monster);
-                    else
-                    {
-
-                    }
-                    Console.WriteLine("남은 " + monster.m_strName + "의 체력:{0}", monster.m_nHp);
-                }
-                else
-                {
-                    Console.WriteLine("#####" + monster.m_strName + " 승리! #####");
-                    break;
-                }
-                if (!monster.Death()) //monster.m_strName가 살아있다면,
-                {
-                    Console.WriteLine("##### " + monster.m_strName + "의 반격 #######");
-                    Console.WriteLine("" + player.m_strName + "의 공격력:{0}", monster.m_nAtk);
-                    Console.WriteLine("" + monster.m_strName + "의 체력:{0}", player.m_nHp);
-                    if (!player.Death())
-                        monster.Attack(player);
-                    Console.WriteLine("남은 " + player.m_strName + "의 체력:{0}", player.m_nHp);
-                }
-                else
-                {
-                    Console.WriteLine("##### " + player.m_strName + " 승리! #####");
-                    Item item = monster.ReleaseItem();
-                    player.SetItemSlot(item);
-                    Console.WriteLine("{0}가 {1}을 쓰러뜨리고 {2}를 획득했다.", player.m_strName, monster.m_strName, item.m_strName);
-                    break;
-                }
-            }
-        }
+       
     }
 }

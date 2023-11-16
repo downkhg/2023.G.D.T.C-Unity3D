@@ -35,12 +35,12 @@ namespace ResetRPG
         }
         static void TestStoreMain()
         {
-            Player player = new Player("player", 10, 20, 100);
-            Player npc = new Player("store", 10, 20, 100);
+            Player player = new Player("player", 100, 20 ,10, 0, 100);
+            Player npc = new Player("store", 100, 20, 10, 0, 100);
 
-            npc.SetIventoryItem(new Item("힐링포션(소)", 10, 10));
-            npc.SetIventoryItem(new Item("힐링포션(중)", 50, 50));
-            npc.SetIventoryItem(new Item("힐링포션(대)", 100, 100));
+            npc.SetIventoryItem(new Item("힐링포션(소)", 10, 0, 0, 0, 10));
+            npc.SetIventoryItem(new Item("힐링포션(중)", 50, 0, 0, 0, 50));
+            npc.SetIventoryItem(new Item("힐링포션(대)", 100, 0, 0, 0, 100));
 
             npc.DisplayIventory("의 상점 목록(선택할 아이템의 번호를 입력하세요");
             string strInputText = Console.ReadLine();
@@ -63,17 +63,17 @@ namespace ResetRPG
             Player player;
             Player monster;
 
-            player = new Player("player", 10, 20);
-            monster = new Player("slime", 10, 20);
+            player = new Player("player", 100, 20, 10, 0);
+            monster = new Player("slime", 100, 20, 10, 0);
 
             
             List<Item> m_listItemManager = new List<Item>();
 
-            m_listItemManager.Add(new Item("힐링포션(소)", 10, 10)); //0
-            m_listItemManager.Add(new Item("힐링포션(중)", 50, 50)); //1
-            m_listItemManager.Add(new Item("힐링포션(대)", 100, 100)); //2
+            m_listItemManager.Add(new Item(Item.E_ITEM_CATEGORY.CONSUMABLE, "힐링포션(소)", 10, 0, 0, 0, 10)); //0
+            m_listItemManager.Add(new Item(Item.E_ITEM_CATEGORY.CONSUMABLE, "힐링포션(중)", 50, 0, 0, 0, 50)); //1
+            m_listItemManager.Add(new Item(Item.E_ITEM_CATEGORY.CONSUMABLE, "힐링포션(대)", 100, 0, 0, 0, 100)); //2
 
-            Player npc = new Player("store", 10, 20, 100);
+            Player npc = new Player("store", 100, 20, 10, 0);
 
             foreach(var item in m_listItemManager)
                 npc.SetIventoryItem(item);
@@ -113,22 +113,21 @@ namespace ResetRPG
 
         static void Battle(Player player, Player monster)
         {
+            string strInput;
             while (true)
             {
-                string strInput;
-
-                //Console.WriteLine("행동을 선택하세요!");
-                //strInput = Console.ReadLine();
-                //if (strInput == "공격")
+                Console.WriteLine("행동을 선택하세요!");
+                strInput = Console.ReadLine();
+                if (strInput == "공격")
                 {
                     player.Display("가 공격했다!");
                     player.Attack(monster);
                 }
-                //else
-                //{
-                //    player.UseItemSlot();
-                //    player.Display("가 아이템을 사용했다!");
-                //}
+                else
+                {
+                    player.UseItemSlot();
+                    player.Display("가 아이템을 사용했다!");
+                }
 
                 monster.Display("이 피해를 입었다!");
                 if (monster.Death())
