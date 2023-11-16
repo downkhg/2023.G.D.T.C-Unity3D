@@ -29,7 +29,7 @@ namespace TextRPG
 
         public int m_nGold;
 
-        public List<Item> m_listIventory;
+        public List<Item> m_listIventory = new List<Item>();
 
         public void SetIventoryItem(Item item)
         {
@@ -103,11 +103,12 @@ namespace TextRPG
             }
         }
 
-        public Player(string name, int atk, int hp)
+        public Player(string name, int atk, int hp, int gold = 999999999)
         {
             m_nAtk = atk;
             m_nHp = hp;
             m_strName = name;
+            m_nGold = gold;
         }
 
         //함수(동작): 객체가 하는 행동의 알고리즘을 함수화 한것.
@@ -146,6 +147,15 @@ namespace TextRPG
             foreach (var c in m_strName) Console.Write("#");
             foreach (var c in msg) Console.Write("#");
             Console.WriteLine();
+        }
+
+        public void DisplayIventory(string msg = "")
+        {
+            Console.WriteLine("# {0}  #", m_strName, msg);
+            for (int i = 0; i < m_listIventory.Count; i++)
+            {
+                Console.WriteLine("[{0}]:{1}", i, m_listIventory[i].m_strName);
+            }
         }
     }
 

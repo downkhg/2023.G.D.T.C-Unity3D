@@ -30,9 +30,31 @@ namespace ResetRPG
     {
         static void Main(string[] args)
         {
-            TextRPGMain();
+            //TextRPGMain();
+            TestStoreMain();
         }
+        static void TestStoreMain()
+        {
+            Player player = new Player("player", 10, 20);
+            Player npc = new Player("store", 10, 20);
 
+            npc.SetIventoryItem(new Item("힐링포션(소)", 10, 10));
+            npc.SetIventoryItem(new Item("힐링포션(중)", 50, 50));
+            npc.SetIventoryItem(new Item("힐링포션(대)", 100, 100));
+
+            npc.DisplayIventory("의 상점 목록(선택할 아이템의 번호를 입력하세요");
+            string strInputText = Console.ReadLine();
+            int nSelectIdx = int.Parse(strInputText);
+
+            player.StoreBuy(npc, nSelectIdx);
+           
+
+            player.DisplayIventory("의 인벤토리");
+
+            player.Sell(npc, 0);
+            player.DisplayIventory("의 인벤토리");
+            npc.DisplayIventory("의 인벤토리");
+        }
         static void TextRPGMain()
         {
             Player player;
@@ -41,8 +63,8 @@ namespace ResetRPG
             player = new Player("player", 10, 20);
             monster = new Player("slime", 10, 20);
 
-            player.SetItemSlot(new Item("힐링포션(소)", 10));
-            monster.SetItemSlot(new Item("힐링포션(소)",10));
+            player.SetItemSlot(new Item("힐링포션(소)", 10, 10));
+            monster.SetItemSlot(new Item("힐링포션(소)",10, 10));
 
             while (true)
             {
