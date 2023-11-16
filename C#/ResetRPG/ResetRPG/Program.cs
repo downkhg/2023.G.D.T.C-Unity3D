@@ -30,8 +30,8 @@ namespace ResetRPG
     {
         static void Main(string[] args)
         {
-            //TextRPGMain();
-            TestStoreMain();
+            TextRPGMain();
+            //TestStoreMain();
         }
         static void TestStoreMain()
         {
@@ -56,6 +56,8 @@ namespace ResetRPG
             player.DisplayIventory("의 인벤토리");
             npc.DisplayIventory("의 인벤토리");
         }
+
+        enum E_ITEM { HPPOSTION_S,HPPOSTION_M,HPPOSTION_L }
         static void TextRPGMain()
         {
             Player player;
@@ -64,9 +66,53 @@ namespace ResetRPG
             player = new Player("player", 10, 20);
             monster = new Player("slime", 10, 20);
 
-            player.SetItemSlot(new Item("힐링포션(소)", 10, 10));
-            monster.SetItemSlot(new Item("힐링포션(소)",10, 10));
+            
+            List<Item> m_listItemManager = new List<Item>();
 
+            m_listItemManager.Add(new Item("힐링포션(소)", 10, 10)); //0
+            m_listItemManager.Add(new Item("힐링포션(중)", 50, 50)); //1
+            m_listItemManager.Add(new Item("힐링포션(대)", 100, 100)); //2
+
+            Player npc = new Player("store", 10, 20, 100);
+
+            foreach(var item in m_listItemManager)
+                npc.SetIventoryItem(item);
+  
+            player.SetItemSlot(m_listItemManager[(int)E_ITEM.HPPOSTION_S]);
+            monster.SetItemSlot(m_listItemManager[(int)E_ITEM.HPPOSTION_S]);
+
+            string strSelectFiled = "";
+
+            while (true)
+            {
+                Console.Write("장소이름을 입력하세요.(상점, 필드)");
+                strSelectFiled = Console.ReadLine();
+
+                Console.WriteLine("{0}에 들어갔습니다.", strSelectFiled);
+                switch (strSelectFiled)
+                {
+                    case "상점":
+                        Store(player, npc);
+                        break;
+                    case "필드":
+                        Battle(player, monster);
+                        break;
+                }
+            }
+        }
+
+        static void Store(Player player, Player npc)
+        {
+            npc.DisplayIventory("의 상점 목록(선택할 아이템의 번호를 입력하세요");
+            string strInputText = Console.ReadLine();
+            int nSelectIdx = int.Parse(strInputText);
+
+            player.StoreBuy(npc, nSelectIdx);
+            player.DisplayIventory("의 인벤토리");
+        }
+
+        static void Battle(Player player, Player monster)
+        {
             while (true)
             {
                 string strInput;
