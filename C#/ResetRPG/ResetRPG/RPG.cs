@@ -75,6 +75,16 @@ namespace TextRPG
             else
                 return true;
         }
+
+        public void Display(string msg = "")
+        {
+            Console.WriteLine("# {0} {1} #", m_strName, msg);
+            Console.WriteLine("공격력: {0} ", m_nAtk);
+            Console.WriteLine("체력: {0} ", m_nHp);
+            foreach (var c in m_strName) Console.Write("#");
+            foreach (var c in msg) Console.Write("#");
+            Console.WriteLine();
+        }
     }
 
     internal class RPG

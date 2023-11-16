@@ -36,12 +36,29 @@ namespace ResetRPG
             Player player;
             Player monster;
 
-            player = new Player("player", 10, 100);
-            monster = new Player("slime", 10, 100);
+            player = new Player("player", 10, 30);
+            monster = new Player("slime", 10, 30);
 
-            player.Attack(monster);
+            while (true)
+            {
+                player.Display("가 공격했다!");
+                player.Attack(monster);
+                monster.Display("이 피해를 입었다!");
+                if (monster.Death())
+                {
+                    monster.Display("이 패배했다.");
+                    break;
+                }
 
-            monster.Attack(player);
+                monster.Display("이 공격했다!");
+                monster.Attack(player);
+                player.Display("가 피해를 입었다!");
+                if (player.Death())
+                {
+                    player.Display("가 패배했다.");
+                    break;
+                }
+            }
         }
     }
 }
