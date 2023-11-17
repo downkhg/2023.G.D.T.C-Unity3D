@@ -66,10 +66,12 @@ namespace ResetRPG
             player.SetIventoryItem(m_listItemManager[(int)E_ITEM.WOOD_RING]);
 
             string strSelectFiled = "";
+            bool isLoop = true;
 
-            while (true)
+            while (isLoop)
             {
-                Console.Write("장소이름을 입력하세요.(상점,장비함, 필드)");
+                Console.WriteLine("게임을 종료하려면 '나가기' 입력하세요!");
+                Console.Write("장소이름을 입력하세요.(상점, 장비함, 필드)");
                 strSelectFiled = Console.ReadLine();
 
                 Console.WriteLine("{0}에 들어갔습니다.", strSelectFiled);
@@ -84,19 +86,31 @@ namespace ResetRPG
                     case "필드":
                         Battle(player, monster);
                         break;
+                    case "나가기":
+                        Console.WriteLine("게임을 종료합니다.");
+                        break;
                 }
             }
         }
 
         static void Iventory(Player player)
         {
-            player.DisplayIventory("의 인벤토리");
+            Console.WriteLine("그만두려면 '-1'이나 '나가기' 입력하세요!");
+            player.DisplayIventory("의 인벤토리(사용할 아이템의 번호를 입력해주세요.)");
             string strInputText = Console.ReadLine();
+            if (strInputText == "나가기") return;
             int nSelectIdx = int.Parse(strInputText);
+            if (nSelectIdx == -1) return;
             Item selectItem = player.GetIvenventoryItemIdx(nSelectIdx);
             if (selectItem != null) 
                 selectItem.Use(player); 
-            player.Display("의 장비함");
+            player.Display("의 장비함(장비를 해제하려면 장비함를 입력해주세요.)");
+            strInputText = Console.ReadLine();
+            if (strInputText == "나가기") return;
+            nSelectIdx = int.Parse(strInputText);
+            if (nSelectIdx == -1) return;
+            if (nSelectIdx < (int)Player.E_EQUMENT_TYPE.MAX)
+                player.m_llistEqument[nSelectIdx].Use(player);   
         }
 
         static void Store(Player player, Player npc)
@@ -104,7 +118,6 @@ namespace ResetRPG
             npc.DisplayIventory("의 상점 목록(선택할 아이템의 번호를 입력하세요");
             string strInputText = Console.ReadLine();
             int nSelectIdx = int.Parse(strInputText);
-
             player.StoreBuy(npc, nSelectIdx);
             player.DisplayIventory("의 인벤토리");
         }
