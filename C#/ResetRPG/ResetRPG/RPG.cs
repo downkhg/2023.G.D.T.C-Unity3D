@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -69,6 +70,11 @@ namespace TextRPG
             Console.WriteLine("Str{0}", nStr);
             Console.WriteLine("Def{0}", nDef);
         }
+
+        override public string ToString()
+        {
+            return string.Format("{0},{1},{2},{3}",nHP,nMP,nStr,nDef);
+        }
     }
 
     class Item
@@ -78,6 +84,21 @@ namespace TextRPG
         public string m_strName;
         public Status m_sStatus;
         public int m_nPrice;
+
+        public Item(string dataString)
+        {
+            Console.WriteLine("ItemParse:{0}",dataString);
+            string[] Splits = dataString.Split(new char[] { ',' });
+            m_eCategory = (E_ITEM_CATEGORY)int.Parse(Splits[0]);
+            m_strName = Splits[1];
+            m_sStatus = new Status(int.Parse(Splits[2]), int.Parse(Splits[3]), int.Parse(Splits[4]), int.Parse(Splits[5]));
+            m_nPrice = int.Parse(Splits[6]);
+        }
+
+        override public string ToString()
+        {
+            return string.Format("{0},{1},{2},{3}", (int)m_eCategory, m_strName, m_sStatus.ToString(),m_nPrice);
+        }
 
         public Item(E_ITEM_CATEGORY eCategory, string name, Status status, int price)
         {
@@ -150,6 +171,71 @@ namespace TextRPG
                     break;
                 case E_ITEM_CATEGORY.ACTIVE:
                     break;
+            }
+        }
+    }
+
+    class DataManager
+    {
+        public enum E_ITEM { HPPOSTION_S, HPPOSTION_M, HPPOSTION_L, WOOD_WEAPON, WOOD_ARMOR, WOOD_RING }
+        List<Item> m_listItemManager = new List<Item>();
+
+        public void Init()
+        {
+            m_listItemManager.Add(new Item(Item.E_ITEM_CATEGORY.CONSUMABLE, "힐링포션(소)", 10, 0, 0, 0, 10)); //0
+            m_listItemManager.Add(new Item(Item.E_ITEM_CATEGORY.CONSUMABLE, "힐링포션(중)", 50, 0, 0, 0, 50)); //1
+            m_listItemManager.Add(new Item(Item.E_ITEM_CATEGORY.CONSUMABLE, "힐링포션(대)", 100, 0, 0, 0, 100)); //2
+            m_listItemManager.Add(new Item(Item.E_ITEM_CATEGORY.EQUMENT_WEAPON, "목검", 0, 0, 10, 0, 100)); //2
+            m_listItemManager.Add(new Item(Item.E_ITEM_CATEGORY.EQUMENT_ARMOR, "나무갑옷", 0, 0, 0, 10, 100)); //2
+            m_listItemManager.Add(new Item(Item.E_ITEM_CATEGORY.EQUMENT_ACC, "나무반지", 20, 0, 0, 0, 100)); //2
+        }
+
+        public void Save()
+        {
+            StreamWriter swFile = new StreamWriter("ItemData.csv");
+
+            foreach(Item item  in m_listItemManager)
+            {
+                swFile.WriteLine(item.ToString());
+                Console.WriteLine(item.ToString());
+            }
+            swFile.Close();
+        }
+
+        public void Load()
+        {
+            StreamReader srFile = new StreamReader("ItemData.csv");
+
+            string strDataFileString = srFile.ReadToEnd();
+            string[] splits = strDataFileString.Split(new char[] { (char)13 }); //'\n' == 13(아스키코드):줄바꿈
+            Console.WriteLine("File:",strDataFileString);
+            foreach (string line in splits)
+            {
+                if (line != "\n")
+                {
+                    Console.WriteLine("line:{0}", line);
+                    m_listItemManager.Add(new Item(line));
+                }
+            }
+
+            srFile.Close();
+        }
+
+        public Item GetItemIdx(int idx)
+        {
+            return m_listItemManager[idx];
+        }
+
+        public Item GetItem(E_ITEM item)
+        {
+            return m_listItemManager[(int)item];
+        }
+
+        public void SetPlayerAllData(Player player)
+        {
+            foreach(Item item in m_listItemManager)
+            {
+                player.SetIventoryItem(item);
             }
         }
     }

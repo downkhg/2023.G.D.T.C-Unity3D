@@ -44,26 +44,26 @@ namespace ResetRPG
             monster = new Player("slime", 100, 20, 10, 0);
 
             
-            List<Item> m_listItemManager = new List<Item>();
+            DataManager dataManager = new DataManager();
 
-            m_listItemManager.Add(new Item(Item.E_ITEM_CATEGORY.CONSUMABLE, "힐링포션(소)", 10, 0, 0, 0, 10)); //0
-            m_listItemManager.Add(new Item(Item.E_ITEM_CATEGORY.CONSUMABLE, "힐링포션(중)", 50, 0, 0, 0, 50)); //1
-            m_listItemManager.Add(new Item(Item.E_ITEM_CATEGORY.CONSUMABLE, "힐링포션(대)", 100, 0, 0, 0, 100)); //2
-            m_listItemManager.Add(new Item(Item.E_ITEM_CATEGORY.EQUMENT_WEAPON, "목검", 0, 0, 10, 0, 100)); //2
-            m_listItemManager.Add(new Item(Item.E_ITEM_CATEGORY.EQUMENT_ARMOR, "나무갑옷", 0, 0, 0, 10, 100)); //2
-            m_listItemManager.Add(new Item(Item.E_ITEM_CATEGORY.EQUMENT_ACC, "나무반지", 20, 0, 0, 0, 100)); //2
+            dataManager.Load();
+            //dataManager.Init();
+            //dataManager.Save();
 
             Player npc = new Player("store", 100, 20, 10, 0);
 
-            foreach(var item in m_listItemManager)
-                npc.SetIventoryItem(item);
-            
-            player.SetItemSlot(m_listItemManager[(int)E_ITEM.HPPOSTION_S]);
-            monster.SetItemSlot(m_listItemManager[(int)E_ITEM.HPPOSTION_S]);
+            dataManager.SetPlayerAllData(npc);
 
-            player.SetIventoryItem(m_listItemManager[(int)E_ITEM.WOOD_WEAPON]);
-            player.SetIventoryItem(m_listItemManager[(int)E_ITEM.WOOD_ARMOR]);
-            player.SetIventoryItem(m_listItemManager[(int)E_ITEM.WOOD_RING]);
+            Item getItem = null;
+            getItem = dataManager.GetItem(DataManager.E_ITEM.HPPOSTION_S);
+            player.SetItemSlot(getItem);
+            monster.SetItemSlot(getItem);
+            getItem = dataManager.GetItem(DataManager.E_ITEM.WOOD_WEAPON);
+            player.SetIventoryItem(getItem);
+            getItem = dataManager.GetItem(DataManager.E_ITEM.WOOD_ARMOR);
+            player.SetIventoryItem(getItem);
+            getItem = dataManager.GetItem(DataManager.E_ITEM.WOOD_RING);
+            player.SetIventoryItem(getItem);
 
             string strSelectFiled = "";
             bool isLoop = true;
