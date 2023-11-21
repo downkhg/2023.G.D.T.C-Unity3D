@@ -1,28 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TextRPG;
 
 public class Gun : MonoBehaviour
 {
     public GameObject prefabBullet;
     public float ShotPower = 200;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
+    public void Shot(int demage)
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Debug.Log("Space key was pressed. 1");
-            GameObject objBullet = Instantiate(prefabBullet);
-            objBullet.transform.position = this.gameObject. transform.position;
-            objBullet.name = prefabBullet.name;
-            objBullet.GetComponent<Rigidbody>().AddForce(transform.forward * ShotPower);
-            Debug.Log("Space key was pressed. 2");
-        }
+        GameObject objBullet = Instantiate(prefabBullet);
+        Bullet bullet = objBullet.GetComponent<Bullet>();
+        bullet.SetDemage(demage);
+        objBullet.transform.position = this.gameObject.transform.position;
+        objBullet.name = prefabBullet.name;
+        objBullet.GetComponent<Rigidbody>().AddForce(transform.forward * ShotPower);
     }
 }

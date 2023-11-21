@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class Observer : MonoBehaviour
 {
-    public Transform player;
+    public PlayerMovement playerMovent;
     public GameEnding gameEnding;
-    bool m_IsPlayerInRange;
     public bool isAtkBlock = false;
+    public WaypointPatrol waypointPatrol;
+
 
     public void ActiveAtkBlock()
     {
@@ -19,39 +20,50 @@ public class Observer : MonoBehaviour
         isAtkBlock = false;
     }
 
+    private void Start()
+    {
+        waypointPatrol = transform.parent.GetComponent<WaypointPatrol>();
+    }
+
     private void Update()
     {
-        if(m_IsPlayerInRange)
+        if(playerMovent)
         {
             if (isAtkBlock == false)
             {
-                Vector3 direction = player.position - transform.position + Vector3.up;
+                Vector3 direction = playerMovent.transform.position - transform.position + Vector3.up;
                 Ray ray = new Ray(transform.position, direction);
                 RaycastHit raycastHit;
                 if (Physics.Raycast(ray, out raycastHit))
                 {
-                    if (raycastHit.collider.transform == player)
+                    if (raycastHit.collider.transform == playerMovent.transform)
                     {
-                        gameEnding.CaughtPlayer();
-                    }
+                        waypointPatrol.m_cPlayer.Attack(playerMovent.m_cPlayer);
+
+                        if(playerMovent.m_cPlayer.Death())
+                            gameEnding.CaughtPlayer();
+                        Debug.DrawLine(this.transform.position, playerMovent.transform.position,Color.green);
+                    }     
                 }
-            }     
+            }
+
+            Debug.DrawLine(this.transform.position, playerMovent.transform.position, Color.red);
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.transform ==player)
+        if(other.tag == "Player")
         {
-            m_IsPlayerInRange = true;
+            playerMovent = other.gameObject.GetComponent<PlayerMovement>();
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if(other.transform ==player)
+        if(other.tag == "Player")
         {
-            m_IsPlayerInRange = false;
+            playerMovent = null;
         }
     }
 }

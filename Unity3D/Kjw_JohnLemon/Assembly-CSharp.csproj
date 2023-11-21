@@ -62,9 +62,11 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\WaypointPatrol.cs" />
     <Compile Include="Assets\Scripts\Gun.cs" />
+    <Compile Include="Assets\Library\RPG.cs" />
     <Compile Include="Assets\Scripts\GameEnding.cs" />
     <Compile Include="Assets\Scripts\Bullet.cs" />
     <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
+    <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\LightFlicker.cs" />
     <Compile Include="Assets\Scripts\Observer.cs" />
     <Compile Include="Assets\Scripts\MoveBlock.cs" />

@@ -18,9 +18,9 @@
     </TypeIdentifier>
   </Class>
   <Class Name="TextRPG.Status">
-    <Position X="7" Y="1" Width="1.5" />
+    <Position X="7.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAIAAAAAAAAAEAgAwAEAAQAAAAAAAAAAAAAAAABAAAA=</HashCode>
+      <HashCode>AAIAAAAAAAAAEAgEwAEAAQAAAAAAAAAAAAAAAABAAAA=</HashCode>
       <FileName>RPG.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -37,7 +37,7 @@
       </Enum>
     </NestedTypes>
     <TypeIdentifier>
-      <HashCode>AABAAAAIAAAAAAAAAAAAAAAAAAAEAAAQAAAAAAAAQAA=</HashCode>
+      <HashCode>AABAAAAIAAAAAAAEAAAAAAAAAAAEAAAQAAAAAAAAQAA=</HashCode>
       <FileName>RPG.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -54,12 +54,12 @@
       </Enum>
     </NestedTypes>
     <TypeIdentifier>
-      <HashCode>AAAAgAAAAAAAAEAAAIAAAAAAAAAAgAAAAAACAAgAAAA=</HashCode>
+      <HashCode>AAAAgIAAAAAAAEAAAIAAAAAAAAAAgAAAAAACAAgAAAA=</HashCode>
       <FileName>RPG.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="TextRPG.Player">
-    <Position X="7" Y="4.25" Width="1.5" />
+    <Position X="9.5" Y="0.5" Width="1.5" />
     <Compartments>
       <Compartment Name="Nested Types" Collapsed="false" />
     </Compartments>
@@ -76,7 +76,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="TextRPG.RPG">
-    <Position X="16" Y="2.75" Width="1.5" />
+    <Position X="12.5" Y="1" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>RPG.cs</FileName>

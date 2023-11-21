@@ -9,6 +9,7 @@ public class WaypointPatrol : MonoBehaviour
 {
     public NavMeshAgent navMeshAgent;
     public Transform[] waypoints;
+    public TextRPG.Player m_cPlayer;
 
     public Observer observer;
 
@@ -69,6 +70,7 @@ public class WaypointPatrol : MonoBehaviour
 
     void Start()
     {
+        //player = new TextRPG.Player(this.gameObject.name, 100, 0, 10, 0, 0); //게임관리자에서 설정해주므로 처리할 필요가 없다.
         Vector3 vFirstWayPointPos = waypoints[0].position;
         navMeshAgent.SetDestination(vFirstWayPointPos);
     }
@@ -86,6 +88,14 @@ public class WaypointPatrol : MonoBehaviour
                 m_CurrentWaypointIndex = nUseIdx;
             }
         }
+
+       if( m_cPlayer.Death())
+        {
+            navMeshAgent.SetDestination(this.gameObject.transform.position); //맞은위치를 도착위지로 변경하여 이동이 되지않도록한다.
+            //isMoveBlock = true; //이동금지 발동
+            //ActiveMoveBlock();
+            ActiveStun();
+        }
     }
 
     private void OnDrawGizmos()
@@ -93,7 +103,7 @@ public class WaypointPatrol : MonoBehaviour
         //remainingDistance를 시각적으로 표현되도록 만들어보기
         Vector3 vPos = this.transform.position;
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(vPos, navMeshAgent.remainingDistance);
+        //Gizmos.DrawWireSphere(vPos, navMeshAgent.remainingDistance);
 
         Vector3 vWayPointPos = waypoints[m_CurrentWaypointIndex].position;
         Gizmos.color = Color.red;
@@ -110,10 +120,7 @@ public class WaypointPatrol : MonoBehaviour
     {
         if (collision.gameObject.name == "Bullet") //총알에 맞았을때,
         {
-            navMeshAgent.SetDestination(this.gameObject.transform.position); //맞은위치를 도착위지로 변경하여 이동이 되지않도록한다.
-            //isMoveBlock = true; //이동금지 발동
-            //ActiveMoveBlock();
-            ActiveStun();
+           
         }
     }
 
@@ -130,10 +137,10 @@ public class WaypointPatrol : MonoBehaviour
         Vector3 vPos = this.transform.position;
         Vector3 vPosToScreen = Camera.main.WorldToScreenPoint(vPos); //월드좌표를 스크린좌표로 변환한다.
         vPosToScreen.y = Screen.height - vPosToScreen.y; //y좌표의 축이 하단을 기준으로 정렬되므로 상단으로 변환한다.
-        int h = 20;
+        int h = 40;
         int w = 200;
         Rect rectGUI = new Rect(vPosToScreen.x, vPosToScreen.y, w, h);
         //GUI.Box(rectGUI, "MoveBlock:" + isMoveBlock);
-        GUI.Box(rectGUI, string.Format("[{0}]:{1}/{2}", isMoveBlock, curTime, moveBlockTime));
+        GUI.Box(rectGUI, string.Format("[{0}]:{1}/{2}\nHP:{3}", isMoveBlock, curTime, moveBlockTime, m_cPlayer.m_nHp));
     }
 }
