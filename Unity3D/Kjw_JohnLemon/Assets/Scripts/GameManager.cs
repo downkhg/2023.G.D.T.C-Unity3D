@@ -11,9 +11,21 @@ public class GameManager : MonoBehaviour
     public List<PlayerMovement> m_listPlayer;
     public List<WaypointPatrol> m_listGhost;
 
+    public GameEnding m_cGameEnding;
+
+    public void EventGameOver()
+    {
+        m_cGameEnding.CaughtPlayer();
+    }
+
+    public void EventEnd()
+    {
+        m_cGameEnding.GoalInPlayer();
+    }
+
     static GameManager m_cInstance;
 
-    public GameManager GetInstance()
+    public static GameManager GetInstance()
     {
         return m_cInstance;
     }

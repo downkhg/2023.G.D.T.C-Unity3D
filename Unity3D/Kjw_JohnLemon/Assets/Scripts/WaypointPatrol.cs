@@ -107,7 +107,7 @@ public class WaypointPatrol : MonoBehaviour
 
         Vector3 vWayPointPos = waypoints[m_CurrentWaypointIndex].position;
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(vWayPointPos, navMeshAgent.stoppingDistance);
+        //Gizmos.DrawWireSphere(vWayPointPos, navMeshAgent.stoppingDistance);
 
         for(int i = 0;  i < waypoints.Length; i++)
         {

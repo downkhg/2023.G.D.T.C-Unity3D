@@ -61,12 +61,17 @@ public class GameEnding : MonoBehaviour
         m_IsPlayerCaught = true;
     }
 
+    public void GoalInPlayer()
+    {
+        m_IsPlayerAtExit = true;
+    }
+
 
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject == player)
         {
-            m_IsPlayerAtExit = true;
+            GameManager.GetInstance().EventEnd();
         }
     }
 

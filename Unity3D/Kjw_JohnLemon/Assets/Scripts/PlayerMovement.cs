@@ -18,7 +18,6 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
-        m_cPlayer = new Player(this.gameObject.name,100,100,10,0,0);
         m_Animator = GetComponent<Animator>();
         m_Rigidbody = GetComponent<Rigidbody>();
         m_AudioSource = GetComponent<AudioSource>();
@@ -40,6 +39,11 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(m_cPlayer.Death())
+        {
+            GameManager.GetInstance().EventGameOver();
+        }
+
         if (Input.GetKeyDown(KeyCode.Space))
         {
             if (m_cPlayer.m_nMp > 0)

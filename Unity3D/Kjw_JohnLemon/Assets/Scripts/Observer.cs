@@ -5,7 +5,7 @@ using UnityEngine;
 public class Observer : MonoBehaviour
 {
     public PlayerMovement playerMovent;
-    public GameEnding gameEnding;
+    //public GameEnding gameEnding;
     public bool isAtkBlock = false;
     public WaypointPatrol waypointPatrol;
 
@@ -40,8 +40,8 @@ public class Observer : MonoBehaviour
                     {
                         waypointPatrol.m_cPlayer.Attack(playerMovent.m_cPlayer);
 
-                        if(playerMovent.m_cPlayer.Death())
-                            gameEnding.CaughtPlayer();
+                        //if(playerMovent.m_cPlayer.Death())
+                        //    gameEnding.CaughtPlayer();
                         Debug.DrawLine(this.transform.position, playerMovent.transform.position,Color.green);
                     }     
                 }
