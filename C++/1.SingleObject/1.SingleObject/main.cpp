@@ -55,7 +55,7 @@ int main()
 	SingleObject* pArrSingleObjects[2] = {};
 	//동적할당은 가능한가?
 	//동적할당도 객체를 생성할때는 생성자가 public이여만 가능하다.
-	pSingleObjectA = new SingleObject();
+	//pSingleObjectA = new SingleObject();
 	//객체가 생성전인데 일반멤버에 접근하는것은 원칙적으로는 불가능하나, 함수는 객체 생성전부터 존재할수있으며,
 	//메모리를 사용하여 접근하는데는 지장이 없으므로 실행이 가능하다. 단, 객체가 일반멤버변수를 출력하려고한다면, 
 	//일반 멤버는 객체가 생성되기전에 접근이 불가능하므로, 컴파일오류가 나게된다.
