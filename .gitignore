@@ -205,7 +205,10 @@ PublishScripts/
 # NuGet v3's project.json files produces more ignorable files
 *.nuget.props
 *.nuget.targets
-
+## 유니티 제외폴더
+Unity3D\*\Library
+Unity3D\*\UserSettings
+Unity3D\*\UserSettings
 # Microsoft Azure Build Output
 csx/
 *.build.csdef
