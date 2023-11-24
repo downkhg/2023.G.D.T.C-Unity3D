@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TextRPG;
 using static TextRPG.PlayerManager;
+using System;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class GameManager : MonoBehaviour
     PlayerManager m_cPlayerManager = new PlayerManager();
 
     public List<PlayerMovement> m_listPlayer;
-    public List<Observer> m_listEnemies;
+    public List<GameObject> m_listEnemies;
 
     public GameEnding m_cGameEnding;
 
@@ -42,9 +43,19 @@ public class GameManager : MonoBehaviour
         PlayerMovement playerMovement = m_listPlayer[0].GetComponent<PlayerMovement>();
         playerMovement.m_cPlayer = m_cPlayerManager.GetPlayer(PlayerManager.E_PLAYER.JHON_LEAMON);
 
-        foreach(var observer in m_listEnemies)
+        foreach(var obj in m_listEnemies)
         {
-            observer.m_cPlayer = m_cPlayerManager.GetPlayer(PlayerManager.E_PLAYER.GHOST);
+            Observer observer = obj.transform.GetComponentInChildren<Observer>();
+            WaypointPatrol waypointPatrol = obj.GetComponent<WaypointPatrol>();
+            
+            if (waypointPatrol)
+            {
+                observer.m_cPlayer = m_cPlayerManager.GetPlayer(PlayerManager.E_PLAYER.GHOST);
+            }
+            else
+            {
+                observer.m_cPlayer = m_cPlayerManager.GetPlayer(PlayerManager.E_PLAYER.GARGOYLE);
+            }
         }
     }
 
