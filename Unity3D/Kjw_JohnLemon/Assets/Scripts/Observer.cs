@@ -7,8 +7,8 @@ public class Observer : MonoBehaviour
     public PlayerMovement playerMovent;
     //public GameEnding gameEnding;
     public bool isAtkBlock = false;
-    public WaypointPatrol waypointPatrol;
-
+    //public WaypointPatrol waypointPatrol;
+    public TextRPG.Player m_cPlayer;
 
     public void ActiveAtkBlock()
     {
@@ -22,7 +22,7 @@ public class Observer : MonoBehaviour
 
     private void Start()
     {
-        waypointPatrol = transform.parent.GetComponent<WaypointPatrol>();
+        //waypointPatrol = transform.parent.GetComponent<WaypointPatrol>();
     }
 
     private void Update()
@@ -38,7 +38,7 @@ public class Observer : MonoBehaviour
                 {
                     if (raycastHit.collider.transform == playerMovent.transform)
                     {
-                        waypointPatrol.m_cPlayer.Attack(playerMovent.m_cPlayer);
+                        m_cPlayer.Attack(playerMovent.m_cPlayer);
 
                         //if(playerMovent.m_cPlayer.Death())
                         //    gameEnding.CaughtPlayer();

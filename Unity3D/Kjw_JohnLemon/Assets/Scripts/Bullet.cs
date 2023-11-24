@@ -23,7 +23,7 @@ public class Bullet : MonoBehaviour
         if (collision.gameObject.tag == "Enemy")
         {
             WaypointPatrol waypointPatrol = collision.gameObject.GetComponent<WaypointPatrol>();
-             waypointPatrol.m_cPlayer.Demeged(m_nDemage);
+             waypointPatrol.observer.m_cPlayer.Demeged(m_nDemage);
         }
 
         Destroy(this.gameObject);

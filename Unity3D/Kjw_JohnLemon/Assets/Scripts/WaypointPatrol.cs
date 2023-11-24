@@ -9,8 +9,7 @@ public class WaypointPatrol : MonoBehaviour
 {
     public NavMeshAgent navMeshAgent;
     public Transform[] waypoints;
-    public TextRPG.Player m_cPlayer;
-
+    //public TextRPG.Player m_cPlayer;
     public Observer observer;
 
     int m_CurrentWaypointIndex;
@@ -89,7 +88,7 @@ public class WaypointPatrol : MonoBehaviour
             }
         }
 
-       if( m_cPlayer.Death())
+       if(observer.m_cPlayer.Death())
         {
             navMeshAgent.SetDestination(this.gameObject.transform.position); //맞은위치를 도착위지로 변경하여 이동이 되지않도록한다.
             //isMoveBlock = true; //이동금지 발동
@@ -131,16 +130,5 @@ public class WaypointPatrol : MonoBehaviour
         isMoveBlock = false;
     }
 
-    private void OnGUI()
-    {
-        //오브젝트의 3d좌표를 2d좌표(스크린좌표)로 변환하여 GUI를 그린다.
-        Vector3 vPos = this.transform.position;
-        Vector3 vPosToScreen = Camera.main.WorldToScreenPoint(vPos); //월드좌표를 스크린좌표로 변환한다.
-        vPosToScreen.y = Screen.height - vPosToScreen.y; //y좌표의 축이 하단을 기준으로 정렬되므로 상단으로 변환한다.
-        int h = 40;
-        int w = 200;
-        Rect rectGUI = new Rect(vPosToScreen.x, vPosToScreen.y, w, h);
-        //GUI.Box(rectGUI, "MoveBlock:" + isMoveBlock);
-        GUI.Box(rectGUI, string.Format("[{0}]:{1}/{2}\nHP:{3}", isMoveBlock, curTime, moveBlockTime, m_cPlayer.m_nHp));
-    }
+    
 }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TextRPG;
+using static TextRPG.PlayerManager;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,7 +10,7 @@ public class GameManager : MonoBehaviour
     PlayerManager m_cPlayerManager = new PlayerManager();
 
     public List<PlayerMovement> m_listPlayer;
-    public List<WaypointPatrol> m_listGhost;
+    public List<Observer> m_listEnemies;
 
     public GameEnding m_cGameEnding;
 
@@ -41,15 +42,25 @@ public class GameManager : MonoBehaviour
         PlayerMovement playerMovement = m_listPlayer[0].GetComponent<PlayerMovement>();
         playerMovement.m_cPlayer = m_cPlayerManager.GetPlayer(PlayerManager.E_PLAYER.JHON_LEAMON);
 
-        foreach(var ghost in m_listGhost)
+        foreach(var observer in m_listEnemies)
         {
-            ghost.m_cPlayer = m_cPlayerManager.GetPlayer(PlayerManager.E_PLAYER.GHOST);
+            observer.m_cPlayer = m_cPlayerManager.GetPlayer(PlayerManager.E_PLAYER.GHOST);
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        PlayerUpdate();
+    }
+    void PlayerUpdate()
+    {
+        foreach (var player in m_listPlayer)
+        {
+            if (player.m_cPlayer.Death())
+            {
+                GameManager.GetInstance().EventGameOver();
+            }
+        }
     }
 }

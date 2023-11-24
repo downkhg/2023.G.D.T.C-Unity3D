@@ -39,11 +39,6 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(m_cPlayer.Death())
-        {
-            GameManager.GetInstance().EventGameOver();
-        }
-
         if (Input.GetKeyDown(KeyCode.Space))
         {
             if (m_cPlayer.m_nMp > 0)
