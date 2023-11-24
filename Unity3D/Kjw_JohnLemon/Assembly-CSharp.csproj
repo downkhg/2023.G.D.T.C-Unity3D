@@ -71,6 +71,7 @@
     <Compile Include="Assets\Scripts\LightFlicker.cs" />
     <Compile Include="Assets\Scripts\Observer.cs" />
     <Compile Include="Assets\Scripts\MoveBlock.cs" />
+    <Compile Include="Assets\Scripts\ArcTrigger.cs" />
     <Compile Include="Assets\Scripts\PlayerMovement.cs" />
   </ItemGroup>
   <ItemGroup>
