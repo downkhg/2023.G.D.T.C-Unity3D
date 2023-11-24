@@ -88,13 +88,7 @@ public class WaypointPatrol : MonoBehaviour
             }
         }
 
-       if(observer.m_cPlayer.Death())
-        {
-            navMeshAgent.SetDestination(this.gameObject.transform.position); //맞은위치를 도착위지로 변경하여 이동이 되지않도록한다.
-            //isMoveBlock = true; //이동금지 발동
-            //ActiveMoveBlock();
-            ActiveStun();
-        }
+     
     }
 
     private void OnDrawGizmos()

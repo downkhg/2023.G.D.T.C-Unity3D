@@ -98,6 +98,8 @@ StyleCopReport.xml
 *.svclog
 *.scc
 
+
+
 # Chutzpah Test files
 _Chutzpah*
 
@@ -206,9 +208,7 @@ PublishScripts/
 *.nuget.props
 *.nuget.targets
 ## 유니티 제외폴더
-Unity3D\*\Library
-Unity3D\*\UserSettings
-Unity3D\*\UserSettings
+Library
 # Microsoft Azure Build Output
 csx/
 *.build.csdef

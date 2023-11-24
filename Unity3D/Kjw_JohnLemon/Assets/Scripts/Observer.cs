@@ -27,7 +27,12 @@ public class Observer : MonoBehaviour
 
     private void Update()
     {
-        if(playerMovent)
+        AttackProcess();
+    }
+
+    public void AttackProcess()
+    {
+        if (playerMovent)
         {
             if (isAtkBlock == false)
             {
@@ -42,8 +47,8 @@ public class Observer : MonoBehaviour
 
                         //if(playerMovent.m_cPlayer.Death())
                         //    gameEnding.CaughtPlayer();
-                        Debug.DrawLine(this.transform.position, playerMovent.transform.position,Color.green);
-                    }     
+                        Debug.DrawLine(this.transform.position, playerMovent.transform.position, Color.green);
+                    }
                 }
             }
 
