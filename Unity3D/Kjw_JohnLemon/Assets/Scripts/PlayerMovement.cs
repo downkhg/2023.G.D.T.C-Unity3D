@@ -25,6 +25,17 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnGUI()
     {
+        List<Item> listInventory = m_cPlayer.m_listIventory;
+
+        for (int i = 0; i < listInventory.Count; i++)
+        {
+            if(GUI.Button(new Rect(0, 20 * i, 100, 20), string.Format("[{0}]:{1}", i, listInventory[i].m_strName)))
+            {
+                listInventory[i].Use(m_cPlayer);
+                listInventory.Remove(listInventory[i]);
+            }
+        }
+
         //오브젝트의 3d좌표를 2d좌표(스크린좌표)로 변환하여 GUI를 그린다.
         Vector3 vPos = this.transform.position;
         Vector3 vPosToScreen = Camera.main.WorldToScreenPoint(vPos); //월드좌표를 스크린좌표로 변환한다.

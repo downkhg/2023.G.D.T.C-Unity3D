@@ -14,18 +14,20 @@ public class ArcTrigger : MonoBehaviour
 
     private void FixedUpdate()
     {
+        float fHalfAngle = m_fAngle / 2;
         Vector3 vPos = transform.position;
         Vector3 vForward = transform.forward;
-        Quaternion quaternionRight = Quaternion.AngleAxis(m_fAngle / 2, transform.up);
-        Quaternion quaternionLeft = Quaternion.AngleAxis(m_fAngle / 2, transform.up * -1);
+        Quaternion quaternionRight = Quaternion.AngleAxis(fHalfAngle, transform.up);
+        Quaternion quaternionLeft = Quaternion.AngleAxis(fHalfAngle, transform.up * -1);
         Vector3 vRight = quaternionRight * vForward;
         Vector3 vLeft = quaternionLeft * vForward;
         Vector3 vRightPos = vPos + vRight * m_fRadius;
         Vector3 vLeftPos = vPos + vLeft * m_fRadius;
+      
 
         Debug.DrawLine(vPos, vLeftPos, Color.red);
         Debug.DrawLine(vPos, vRightPos, Color.red);
-        Debug.DrawRay(vPos, vForward, Color.red);
+        Debug.DrawRay(vPos, vForward*m_fRadius, Color.yellow);
 
         Collider[] colliders = Physics.OverlapSphere(vPos, m_fRadius);
 
@@ -35,12 +37,12 @@ public class ArcTrigger : MonoBehaviour
             {
                 Vector3 vTargetPos = collider.transform.position;
                 Vector3 vToTarget = vTargetPos - vPos;
-                Vector3 vToTargetDir = vTargetPos.normalized;
-                float fTargetAngle = Vector3.Angle(vToTargetDir, vForward);
-                Debug.DrawRay(vPos, vToTarget, Color.green);//방향이 반대로 나옴. 원인 확인 필요
+      
+                float fTargetAngle = Vector3.Angle(vForward, vToTarget);
+                float fRightAngle = Vector3.Angle(vForward, vRight);
+                float fLeftAngle = Vector3.Angle(vForward, vLeft);
 
-                float fHalfAngle = m_fAngle / 2;
-                Debug.Log("Angle:"+ fTargetAngle + "/"+ fHalfAngle);
+                Debug.Log(collider.gameObject.name+" TargetAngle:"+ fTargetAngle + "/"+ fHalfAngle + "("+fRightAngle+"/"+fLeftAngle+")");
                 if (fTargetAngle < fHalfAngle)
                 {
                     Debug.DrawLine(vPos, vTargetPos, Color.green);
@@ -51,6 +53,8 @@ public class ArcTrigger : MonoBehaviour
                     Debug.DrawLine(vPos, vTargetPos, Color.blue);
                     m_isHit = false;
                 }
+
+                Debug.DrawRay(vPos, vToTarget, Color.green);//방향이 반대로 나옴. 원인 확인 필요
             }
         }
     }

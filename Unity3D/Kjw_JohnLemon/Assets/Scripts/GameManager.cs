@@ -10,6 +10,9 @@ public class GameManager : MonoBehaviour
     ItemManager m_cItemManager = new ItemManager();
     PlayerManager m_cPlayerManager = new PlayerManager();
 
+    public ItemManager ItemManager { get { return m_cItemManager; } }
+    public PlayerManager PlayerManager { get { return m_cPlayerManager; } }
+
     public List<PlayerMovement> m_listPlayer;
     public List<GameObject> m_listEnemies;
 
