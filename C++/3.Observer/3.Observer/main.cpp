@@ -14,7 +14,7 @@ public:
 	int y;
 	//추상클래스: 순수함수를 1개이상 가진 클래스. 객체화가 불가능하다.
 	//순수가상함수: 자식에서 반드시 오버라이드해야만 한다.
-	virtual void Attack(Unit* target) = 0
+	virtual void Attack(Unit* target)// = 0
 	{
 		cout << typeid(*this).name() << "Attack" << endl;
 	}
@@ -39,10 +39,10 @@ public:
 //실체화: 추상클래스를 객체화가 가능한 클래스를 정의한다.
 class Marin : public Unit
 {
-	void Attack(Unit* unit) override
+	/*void Attack(Unit* unit) override
 	{
 		Unit::Attack(unit);
-	}
+	}*/
 
 	void SkillA(Unit* unit) override
 	{
@@ -117,7 +117,7 @@ public:
 void main()
 {
 	Commader cCommder;
-	//Unit units[10];//추상클래스는 객체화 할 수 없다.
+	Unit units[10];//추상클래스는 객체화 할 수 없다.
 	Marin marins[10];
 	Medic medics[10];
 

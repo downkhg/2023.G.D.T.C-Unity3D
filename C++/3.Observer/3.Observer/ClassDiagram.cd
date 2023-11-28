@@ -8,7 +8,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Marin">
-    <Position X="4.25" Y="4.75" Width="1.5" />
+    <Position X="4.5" Y="4.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>EAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>main.cpp</FileName>
@@ -23,8 +23,11 @@
   </Class>
   <Class Name="Commader">
     <Position X="6.75" Y="1.25" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
     <NestedTypes>
-      <Enum Name="Commader::E_COMMAND" Collapsed="true">
+      <Enum Name="Commader::E_COMMAND">
         <TypeIdentifier>
           <NewMemberFileName>main.cpp</NewMemberFileName>
         </TypeIdentifier>
