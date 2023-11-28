@@ -1,8 +1,9 @@
 #pragma once
 
 #include <stdio.h>
-
-class Op
+//인터페이스: 멤버를 가질수없고, 가상함수만 가지는 클래스.
+__interface Op
+//class Op
 {
 public:
 	virtual int Operator(int a, int b) = 0;
