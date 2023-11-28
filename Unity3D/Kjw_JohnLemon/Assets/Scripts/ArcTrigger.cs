@@ -28,12 +28,13 @@ public class ArcTrigger : MonoBehaviour
         Debug.DrawLine(vPos, vLeftPos, Color.red);
         Debug.DrawLine(vPos, vRightPos, Color.red);
         Debug.DrawRay(vPos, vForward*m_fRadius, Color.yellow);
-
-        Collider[] colliders = Physics.OverlapSphere(vPos, m_fRadius);
+        int nLayer = 1 << LayerMask.NameToLayer("Enemy");
+        Collider[] colliders = 
+            Physics.OverlapSphere(vPos, m_fRadius, nLayer);
 
         foreach(Collider collider in colliders)
         {
-            if (collider.tag == "Enemy")
+            //if (collider.tag == "Enemy")
             {
                 Vector3 vTargetPos = collider.transform.position;
                 Vector3 vToTarget = vTargetPos - vPos;
