@@ -3,7 +3,7 @@
 
 void VirtualMain()
 {
-	Op* pOperator;
+	COp* pOperator;
 	int nDataA;
 	int nDataB;
 	char cInput;
@@ -14,16 +14,16 @@ void VirtualMain()
 	switch (cInput)
 	{
 	case '+':
-		pOperator = new Add();
+		pOperator = new CAdd();
 		break;
 	case '-':
-		pOperator = new Sub();
+		pOperator = new CSub();
 		break;
 	case '*':
-		pOperator = new Multi();
+		pOperator = new CMulti();
 		break;
 	case '/':
-		pOperator = new Div();
+		pOperator = new CDiv();
 		break;
 	default:
 		break;
@@ -74,6 +74,7 @@ void TestMain()
 
 void main()
 {
+	//
 	//TestMain();
 	VirtualMain();
 }
