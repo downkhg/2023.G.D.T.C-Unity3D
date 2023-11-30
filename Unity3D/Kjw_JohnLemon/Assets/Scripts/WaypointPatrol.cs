@@ -4,12 +4,15 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
+using static TextRPG.PlayerManager;
 
 public class WaypointPatrol : MonoBehaviour
 {
     public NavMeshAgent navMeshAgent;
     public Transform[] waypoints;
-    //public TextRPG.Player m_cPlayer;
+    public ArcTrigger arcTrigger;
+
+    public TextRPG.Player m_cPlayer;
     public Observer observer;
 
     int m_CurrentWaypointIndex;
@@ -87,8 +90,6 @@ public class WaypointPatrol : MonoBehaviour
                 m_CurrentWaypointIndex = nUseIdx;
             }
         }
-
-     
     }
 
     private void OnDrawGizmos()

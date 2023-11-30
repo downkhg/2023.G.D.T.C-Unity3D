@@ -7,14 +7,14 @@ using System;
 
 public class GameManager : MonoBehaviour
 {
-    ItemManager m_cItemManager = new ItemManager();
-    PlayerManager m_cPlayerManager = new PlayerManager();
+    [SerializeField] ItemManager m_cItemManager = new ItemManager();
+    [SerializeField] PlayerManager m_cPlayerManager = new PlayerManager();
 
     public ItemManager ItemManager { get { return m_cItemManager; } }
     public PlayerManager PlayerManager { get { return m_cPlayerManager; } }
 
     public List<PlayerMovement> m_listPlayer;
-    public List<GameObject> m_listEnemies;
+    public List<EnemyMovement> m_listEnemies;
 
     public GameEnding m_cGameEnding;
 
@@ -46,18 +46,15 @@ public class GameManager : MonoBehaviour
         PlayerMovement playerMovement = m_listPlayer[0].GetComponent<PlayerMovement>();
         playerMovement.m_cPlayer = m_cPlayerManager.GetPlayer(PlayerManager.E_PLAYER.JHON_LEAMON);
 
-        foreach(var obj in m_listEnemies)
+        foreach(var enemy in m_listEnemies)
         {
-            Observer observer = obj.transform.GetComponentInChildren<Observer>();
-            WaypointPatrol waypointPatrol = obj.GetComponent<WaypointPatrol>();
-            
-            if (waypointPatrol)
+            if (enemy.m_isAuto == true)
             {
-                observer.m_cPlayer = m_cPlayerManager.GetPlayer(PlayerManager.E_PLAYER.GHOST);
+                enemy.m_cPlayer = m_cPlayerManager.GetPlayer(PlayerManager.E_PLAYER.GHOST);
             }
             else
             {
-                observer.m_cPlayer = m_cPlayerManager.GetPlayer(PlayerManager.E_PLAYER.GARGOYLE);
+                enemy.m_cPlayer = m_cPlayerManager.GetPlayer(PlayerManager.E_PLAYER.GARGOYLE);
             }
         }
     }

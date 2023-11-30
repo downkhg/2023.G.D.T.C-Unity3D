@@ -27,6 +27,7 @@ public class ItemBox : MonoBehaviour
         {
             Item item = GameManager.GetInstance().ItemManager.GetItem(m_eItem);
             playerMovement.m_cPlayer.SetIventoryItem(item);
+            Destroy(gameObject);
         }
     }
 }

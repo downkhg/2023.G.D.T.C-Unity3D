@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace TextRPG
 {
+    [Serializable]
     public class Status
     {
         public int nHP;
@@ -76,6 +77,7 @@ namespace TextRPG
 
     public class Item
     {
+        [Serializable]
         public enum E_ITEM_CATEGORY { CONSUMABLE, EQUMENT_WEAPON, EQUMENT_ARMOR, EQUMENT_ACC, ACTIVE }
         public E_ITEM_CATEGORY m_eCategory;
         public string m_strName;
@@ -171,7 +173,7 @@ namespace TextRPG
             }
         }
     }
-
+    [Serializable]
     public class ItemManager
     {
         public enum E_ITEM { HPPOSTION_S, HPPOSTION_M, HPPOSTION_L, WOOD_WEAPON, WOOD_ARMOR, WOOD_RING }
@@ -236,7 +238,7 @@ namespace TextRPG
             }
         }
     }
-
+    [Serializable]
     public class PlayerManager//Gargoyle
     {
         public enum E_PLAYER { JHON_LEAMON, GHOST, GARGOYLE  }
@@ -290,7 +292,7 @@ namespace TextRPG
             return m_listPlayer[(int)item];
         }
     }
-
+    [Serializable]
     public class Player
     {
         //변수(속성): 변경될수있는 값.

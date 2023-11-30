@@ -7,6 +7,7 @@ public class ArcTrigger : MonoBehaviour
 {
     public float m_fAngle = 90;
     public float m_fRadius = 3;
+    public GameObject m_objTarget = null;
 
     bool m_isHit;
 
@@ -47,6 +48,7 @@ public class ArcTrigger : MonoBehaviour
                 if (fTargetAngle < fHalfAngle)
                 {
                     Debug.DrawLine(vPos, vTargetPos, Color.green);
+                    m_objTarget = collider.gameObject;
                     m_isHit = true;
                 }
                 else

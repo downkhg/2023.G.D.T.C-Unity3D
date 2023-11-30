@@ -27,12 +27,15 @@ public class PlayerMovement : MonoBehaviour
     {
         List<Item> listInventory = m_cPlayer.m_listIventory;
 
-        for (int i = 0; i < listInventory.Count; i++)
+        if (listInventory != null)
         {
-            if(GUI.Button(new Rect(0, 20 * i, 100, 20), string.Format("[{0}]:{1}", i, listInventory[i].m_strName)))
+            for (int i = 0; i < listInventory.Count; i++)
             {
-                listInventory[i].Use(m_cPlayer);
-                listInventory.Remove(listInventory[i]);
+                if (GUI.Button(new Rect(0, 20 * i, 100, 20), string.Format("[{0}]:{1}", i, listInventory[i].m_strName)))
+                {
+                    listInventory[i].Use(m_cPlayer);
+                    listInventory.Remove(listInventory[i]);
+                }
             }
         }
 
