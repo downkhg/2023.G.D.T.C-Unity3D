@@ -13,9 +13,7 @@ public class EnemyMovement : MonoBehaviour
 
     int m_CurrentWaypointIndex;
     public bool m_isPatrol = false;
-
     public bool m_isAuto = false;
-    public bool m_isMove = false;
 
     public float m_fAngle = 90;
     public float m_fSite = 3;
@@ -48,30 +46,28 @@ public class EnemyMovement : MonoBehaviour
 
         foreach (Collider collider in colliders)
         {
-            //if (collider.tag == "Enemy")
+            Vector3 vTargetPos = collider.transform.position;
+            Vector3 vToTarget = vTargetPos - vPos;
+
+            float fTargetAngle = Vector3.Angle(vForward, vToTarget);
+            float fRightAngle = Vector3.Angle(vForward, vRight);
+            float fLeftAngle = Vector3.Angle(vForward, vLeft);
+
+            //Debug.Log(collider.gameObject.name + " TargetAngle:" + fTargetAngle + "/" + fHalfAngle + "(" + fRightAngle + "/" + fLeftAngle + ")");
+            if (fTargetAngle < fHalfAngle)
             {
-                Vector3 vTargetPos = collider.transform.position;
-                Vector3 vToTarget = vTargetPos - vPos;
-
-                float fTargetAngle = Vector3.Angle(vForward, vToTarget);
-                float fRightAngle = Vector3.Angle(vForward, vRight);
-                float fLeftAngle = Vector3.Angle(vForward, vLeft);
-
-                Debug.Log(collider.gameObject.name + " TargetAngle:" + fTargetAngle + "/" + fHalfAngle + "(" + fRightAngle + "/" + fLeftAngle + ")");
-                if (fTargetAngle < fHalfAngle)
-                {
-                    Debug.DrawLine(vPos, vTargetPos, Color.green);
-                    m_objTarget = collider.gameObject;
-                    m_isPatrol = false;
-                }
-                else
-                {
-                    Debug.DrawLine(vPos, vTargetPos, Color.blue);
-                    m_isHit = false;
-                }
-
-                Debug.DrawRay(vPos, vToTarget, Color.green);//방향이 반대로 나옴. 원인 확인 필요
+                Debug.DrawLine(vPos, vTargetPos, Color.green);
+                //m_objTarget = collider.gameObject;
+                SetTarget(collider.gameObject);
+                m_isPatrol = false;
             }
+            else
+            {
+                Debug.DrawLine(vPos, vTargetPos, Color.blue);
+                m_isHit = false;
+            }
+
+            Debug.DrawRay(vPos, vToTarget, Color.green);//방향이 반대로 나옴. 원인 확인 필요
         }
     }
 
@@ -86,26 +82,25 @@ public class EnemyMovement : MonoBehaviour
         navMeshAgent = GetComponent<NavMeshAgent>();
         if (m_isAuto)
         {
-            if (m_isPatrol)
-            {
-                if (waypoints.Length > 0)
-                    m_objTarget = waypoints[0].gameObject;
+           
+        }
 
-                if (m_objTarget)
+        if (m_isPatrol)
+        {
+            if (waypoints.Length > 0)
+                SetTarget(waypoints[0].gameObject);
+                //m_objTarget = waypoints[0].gameObject;
+
+            if (m_objTarget)
+            {
+                Vector3 vFirstWayPointPos = m_objTarget.transform.position;
+                if (navMeshAgent)
+                    navMeshAgent.SetDestination(vFirstWayPointPos);
+                else
                 {
-                    Vector3 vFirstWayPointPos = m_objTarget.transform.position;
-                    if (navMeshAgent)
-                        navMeshAgent.SetDestination(vFirstWayPointPos);
-                    else
-                    {
-                        transform.LookAt(m_objTarget.transform);
-                        m_isMove = true;
-                    }
+                    transform.LookAt(m_objTarget.transform);
+                    //m_isMove = true;
                 }
-            }
-            else
-            {
-
             }
         }
     }
@@ -120,54 +115,71 @@ public class EnemyMovement : MonoBehaviour
                 if (navMeshAgent)
                 {
                     if (navMeshAgent.remainingDistance < navMeshAgent.stoppingDistance)
-                    {
-                        int nNextIdx = (m_CurrentWaypointIndex + 1); //다음인덱스
-                        int nUseIdx = nNextIdx % waypoints.Length; //0%2 = 0, 1%2= 1 , 2%2 = 0
-                        m_objTarget = waypoints[nUseIdx].gameObject;
-                        navMeshAgent.SetDestination(m_objTarget.transform.position);
-                        //navMeshAgent.SetDestination(waypoints[nUseIdx].position);
-                        m_CurrentWaypointIndex = nUseIdx;
-                    }
+                        PatrolSetNextTarget();
                 }
+            }
+ 
+            ProccesMove();
+
+            if (m_objTarget)
+            {
+                if (navMeshAgent)
+                    navMeshAgent.SetDestination(m_objTarget.transform.position);
                 else
                 {
-                    if (m_isMove)
-                    {
-                        Vector3 vTargetPos = m_objTarget.transform.position;
-                        Vector3 vPos = this.transform.position;
-                        Vector3 vDist = vTargetPos - vPos;
-                        Vector3 vDir = vDist.normalized;
-                        float fDist = vDist.magnitude;
-                        
-                        if (fDist > m_Range)
-                        {
-                            Debug.Log(string.Format("Dist/Range:{0}/{1}", fDist, m_Range));
-                            Debug.DrawRay(vPos, vDist, Color.red);
-                            transform.Translate(Vector3.forward * m_fSpeed * Time.deltaTime);
-                        }
-                        else
-                        {
-                            int nNextIdx = (m_CurrentWaypointIndex + 1); //다음인덱스
-                            int nUseIdx = nNextIdx % waypoints.Length; //0%2 = 0, 1%2= 1 , 2%2 = 0
-                            m_objTarget = waypoints[nUseIdx].gameObject;
-                            Debug.Log(string.Format("ChageTarget[{0}]:{1}", nUseIdx, m_objTarget.name));
-                            transform.LookAt(m_objTarget.transform);
-                        }
-                    }
+                    transform.LookAt(m_objTarget.transform.position);
+                    //m_isMove = true; 
                 }
-
             }
             else
             {
-                if (m_objTarget)
-                    navMeshAgent.SetDestination(m_objTarget.transform.position);
-                else
-                    m_isPatrol = true;
+                //m_objTarget = waypoints[0].gameObject;
+                SetTarget(m_objTarget);
+                m_isPatrol = true;
             }
         }
     }
 
-    
+    public void ProccesMove()
+    {
+        if (m_objTarget == null) return;
+
+        Vector3 vTargetPos = m_objTarget.transform.position;
+        Vector3 vPos = this.transform.position;
+        Vector3 vDist = vTargetPos - vPos;
+        Vector3 vDir = vDist.normalized;
+        float fDist = vDist.magnitude;
+
+        if (fDist > m_fSpeed * Time.deltaTime)
+        {
+            Debug.Log(string.Format("Dist/Range:{0}/{1}", fDist, m_Range));
+            Debug.DrawRay(vPos, vDist, Color.red);
+            transform.Translate(Vector3.forward * m_fSpeed * Time.deltaTime);
+        }
+        else
+        {
+            PatrolSetNextTarget();
+        }
+    }
+
+    public void PatrolSetNextTarget()
+    {
+        int nNextIdx = (m_CurrentWaypointIndex + 1); //다음인덱스
+        int nUseIdx = nNextIdx % waypoints.Length; //0%2 = 0, 1%2= 1 , 2%2 = 0
+        //m_objTarget = waypoints[nUseIdx].gameObject;
+        SetTarget(waypoints[nUseIdx].gameObject);
+        Debug.Log(string.Format("ChageTarget[{0}/{1}]:{2}", nNextIdx, nUseIdx, m_objTarget.name));
+        if(navMeshAgent == null) 
+            transform.LookAt(m_objTarget.transform);
+        else
+            navMeshAgent.SetDestination(m_objTarget.transform.position);
+        m_CurrentWaypointIndex = nUseIdx;
+    }
+
+    public void SetTarget(GameObject target)
+    {
+        m_objTarget = target;
+    }
 
     private void OnDrawGizmos()
     {
