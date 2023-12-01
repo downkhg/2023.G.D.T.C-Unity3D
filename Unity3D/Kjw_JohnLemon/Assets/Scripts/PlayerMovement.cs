@@ -53,6 +53,9 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (m_cPlayer.m_nHp <= 0)
+            Destroy(this.gameObject);
+
         if (Input.GetKeyDown(KeyCode.Space))
         {
             if (m_cPlayer.m_nMp > 0)

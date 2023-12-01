@@ -15,7 +15,7 @@ public class EnemyMovement : MonoBehaviour
     public bool m_isAuto = false;
 
     public float m_fAngle = 90;
-    public float m_fRadius = 3;
+    public float m_fSite = 3;
     public LayerMask m_LayerMask;
     public GameObject m_objTarget = null;
 
@@ -30,16 +30,16 @@ public class EnemyMovement : MonoBehaviour
         Quaternion quaternionLeft = Quaternion.AngleAxis(fHalfAngle, transform.up * -1);
         Vector3 vRight = quaternionRight * vForward;
         Vector3 vLeft = quaternionLeft * vForward;
-        Vector3 vRightPos = vPos + vRight * m_fRadius;
-        Vector3 vLeftPos = vPos + vLeft * m_fRadius;
+        Vector3 vRightPos = vPos + vRight * m_fSite;
+        Vector3 vLeftPos = vPos + vLeft * m_fSite;
 
 
         Debug.DrawLine(vPos, vLeftPos, Color.red);
         Debug.DrawLine(vPos, vRightPos, Color.red);
-        Debug.DrawRay(vPos, vForward * m_fRadius, Color.yellow);
+        Debug.DrawRay(vPos, vForward * m_fSite, Color.yellow);
         int nLayer = 1 << LayerMask.NameToLayer("Player");
         Collider[] colliders =
-            Physics.OverlapSphere(vPos, m_fRadius, m_LayerMask);
+            Physics.OverlapSphere(vPos, m_fSite, m_LayerMask);
 
         foreach (Collider collider in colliders)
         {
@@ -57,9 +57,7 @@ public class EnemyMovement : MonoBehaviour
                 {
                     Debug.DrawLine(vPos, vTargetPos, Color.green);
                     m_objTarget = collider.gameObject;
-                    PlayerMovement playerMovement = collider.GetComponent<PlayerMovement>();
-                    if(playerMovement != null)
-                        m_cPlayer.Attack(playerMovement.m_cPlayer);
+                    m_isPatrol = false;
                 }
                 else
                 {
@@ -115,7 +113,10 @@ public class EnemyMovement : MonoBehaviour
             }
             else
             {
-                navMeshAgent.SetDestination(m_objTarget.transform.position);
+                if (m_objTarget)
+                    navMeshAgent.SetDestination(m_objTarget.transform.position);
+                else
+                    m_isPatrol = true;
             }
         }
     }
@@ -142,6 +143,14 @@ public class EnemyMovement : MonoBehaviour
             }
         }
 
-        Gizmos.DrawWireSphere(transform.position, m_fRadius);
+        Gizmos.DrawWireSphere(transform.position, m_fSite);
+    }
+
+    //private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
+    {
+        PlayerMovement playerMovement = other.GetComponent<PlayerMovement>();
+        if (playerMovement != null)
+            m_cPlayer.Attack(playerMovement.m_cPlayer);
     }
 }

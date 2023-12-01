@@ -62,6 +62,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\WaypointPatrol.cs" />
     <Compile Include="Assets\Scripts\Gun.cs" />
+    <Compile Include="Assets\Scripts\Responner.cs" />
     <Compile Include="Assets\Library\RPG.cs" />
     <Compile Include="Assets\Scripts\GameEnding.cs" />
     <Compile Include="Assets\Scripts\Bullet.cs" />
