@@ -546,6 +546,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 846009679}
     m_Modifications:
+    - target: {fileID: 2287972673206324418, guid: 1da7e258d955b2e4b8fb94d61c90a5fc, type: 3}
+      propertyPath: m_LayerMask.m_Bits
+      value: 128
+      objectReference: {fileID: 0}
     - target: {fileID: 2966295157553805045, guid: 1da7e258d955b2e4b8fb94d61c90a5fc, type: 3}
       propertyPath: m_Layer
       value: 6
@@ -1161,6 +1165,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 846009679}
     m_Modifications:
+    - target: {fileID: 2287972673206324418, guid: 1da7e258d955b2e4b8fb94d61c90a5fc, type: 3}
+      propertyPath: m_LayerMask.m_Bits
+      value: 128
+      objectReference: {fileID: 0}
     - target: {fileID: 2966295157553805045, guid: 1da7e258d955b2e4b8fb94d61c90a5fc, type: 3}
       propertyPath: m_Layer
       value: 6
@@ -4765,9 +4773,13 @@ MonoBehaviour:
     m_nHp: 0
     m_nMp: 0
     m_nGold: 0
+  m_isPatrol: 0
   m_isAuto: 0
   m_fAngle: 90
   m_fRadius: 3
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 0
   m_objTarget: {fileID: 0}
 --- !u!114 &1162454932 stripped
 MonoBehaviour:
@@ -5013,9 +5025,13 @@ MonoBehaviour:
     m_nHp: 0
     m_nMp: 0
     m_nGold: 0
+  m_isPatrol: 0
   m_isAuto: 0
   m_fAngle: 90
   m_fRadius: 3
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 0
   m_objTarget: {fileID: 0}
 --- !u!1 &1708586661 stripped
 GameObject:
@@ -5048,9 +5064,13 @@ MonoBehaviour:
     m_nHp: 0
     m_nMp: 0
     m_nGold: 0
+  m_isPatrol: 0
   m_isAuto: 1
   m_fAngle: 30
   m_fRadius: 3
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 128
   m_objTarget: {fileID: 0}
 --- !u!1 &1757702319
 GameObject:
@@ -5497,9 +5517,13 @@ MonoBehaviour:
     m_nHp: 0
     m_nMp: 0
     m_nGold: 0
+  m_isPatrol: 0
   m_isAuto: 1
   m_fAngle: 30
   m_fRadius: 3
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 128
   m_objTarget: {fileID: 0}
 --- !u!1 &1987881985
 GameObject:
@@ -5790,9 +5814,13 @@ MonoBehaviour:
     m_nHp: 0
     m_nMp: 0
     m_nGold: 0
+  m_isPatrol: 0
   m_isAuto: 1
   m_fAngle: 30
   m_fRadius: 3
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 128
   m_objTarget: {fileID: 0}
 --- !u!1 &2091910554
 GameObject:
@@ -5923,6 +5951,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 846009679}
     m_Modifications:
     - target: {fileID: 6769840942912525791, guid: 20dfce5f4fd2ff545b3f250ec69134d2, type: 3}
+      propertyPath: m_LayerMask.m_Bits
+      value: 128
+      objectReference: {fileID: 0}
+    - target: {fileID: 6769840942912525791, guid: 20dfce5f4fd2ff545b3f250ec69134d2, type: 3}
       propertyPath: waypoints.Array.data[0]
       value: 
       objectReference: {fileID: 2041023430}
@@ -5987,6 +6019,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 846009679}
     m_Modifications:
+    - target: {fileID: 2287972673206324418, guid: 1da7e258d955b2e4b8fb94d61c90a5fc, type: 3}
+      propertyPath: m_LayerMask.m_Bits
+      value: 128
+      objectReference: {fileID: 0}
     - target: {fileID: 6656264585388631016, guid: 1da7e258d955b2e4b8fb94d61c90a5fc, type: 3}
       propertyPath: m_Name
       value: Gargoyle
