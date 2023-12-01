@@ -2,20 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Purchasing;
 
 public class EnemyMovement : MonoBehaviour
 {
     public NavMeshAgent navMeshAgent;
     public Transform[] waypoints;
     public TextRPG.Player m_cPlayer;
+    public float m_fSpeed;
 
     int m_CurrentWaypointIndex;
     public bool m_isPatrol = false;
 
     public bool m_isAuto = false;
+    public bool m_isMove = false;
 
     public float m_fAngle = 90;
     public float m_fSite = 3;
+    public float m_Range = 1;
+
     public LayerMask m_LayerMask;
     public GameObject m_objTarget = null;
 
@@ -83,9 +88,20 @@ public class EnemyMovement : MonoBehaviour
         {
             if (m_isPatrol)
             {
-                m_objTarget = waypoints[0].gameObject;
-                Vector3 vFirstWayPointPos = m_objTarget.transform.position;
-                navMeshAgent.SetDestination(vFirstWayPointPos);
+                if (waypoints.Length > 0)
+                    m_objTarget = waypoints[0].gameObject;
+
+                if (m_objTarget)
+                {
+                    Vector3 vFirstWayPointPos = m_objTarget.transform.position;
+                    if (navMeshAgent)
+                        navMeshAgent.SetDestination(vFirstWayPointPos);
+                    else
+                    {
+                        transform.LookAt(m_objTarget.transform);
+                        m_isMove = true;
+                    }
+                }
             }
             else
             {
@@ -101,15 +117,45 @@ public class EnemyMovement : MonoBehaviour
         {
             if (m_isPatrol)
             {
-                if (navMeshAgent.remainingDistance < navMeshAgent.stoppingDistance)
+                if (navMeshAgent)
                 {
-                    int nNextIdx = (m_CurrentWaypointIndex + 1); //¥Ÿ¿Ω¿Œµ¶Ω∫
-                    int nUseIdx = nNextIdx % waypoints.Length; //0%2 = 0, 1%2= 1 , 2%2 = 0
-                    m_objTarget = waypoints[nUseIdx].gameObject;
-                    navMeshAgent.SetDestination(m_objTarget.transform.position);
-                    //navMeshAgent.SetDestination(waypoints[nUseIdx].position);
-                    m_CurrentWaypointIndex = nUseIdx;
+                    if (navMeshAgent.remainingDistance < navMeshAgent.stoppingDistance)
+                    {
+                        int nNextIdx = (m_CurrentWaypointIndex + 1); //¥Ÿ¿Ω¿Œµ¶Ω∫
+                        int nUseIdx = nNextIdx % waypoints.Length; //0%2 = 0, 1%2= 1 , 2%2 = 0
+                        m_objTarget = waypoints[nUseIdx].gameObject;
+                        navMeshAgent.SetDestination(m_objTarget.transform.position);
+                        //navMeshAgent.SetDestination(waypoints[nUseIdx].position);
+                        m_CurrentWaypointIndex = nUseIdx;
+                    }
                 }
+                else
+                {
+                    if (m_isMove)
+                    {
+                        Vector3 vTargetPos = m_objTarget.transform.position;
+                        Vector3 vPos = this.transform.position;
+                        Vector3 vDist = vTargetPos - vPos;
+                        Vector3 vDir = vDist.normalized;
+                        float fDist = vDist.magnitude;
+                        
+                        if (fDist > m_Range)
+                        {
+                            Debug.Log(string.Format("Dist/Range:{0}/{1}", fDist, m_Range));
+                            Debug.DrawRay(vPos, vDist, Color.red);
+                            transform.Translate(Vector3.forward * m_fSpeed * Time.deltaTime);
+                        }
+                        else
+                        {
+                            int nNextIdx = (m_CurrentWaypointIndex + 1); //¥Ÿ¿Ω¿Œµ¶Ω∫
+                            int nUseIdx = nNextIdx % waypoints.Length; //0%2 = 0, 1%2= 1 , 2%2 = 0
+                            m_objTarget = waypoints[nUseIdx].gameObject;
+                            Debug.Log(string.Format("ChageTarget[{0}]:{1}", nUseIdx, m_objTarget.name));
+                            transform.LookAt(m_objTarget.transform);
+                        }
+                    }
+                }
+
             }
             else
             {
