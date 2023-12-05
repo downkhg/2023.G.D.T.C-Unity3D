@@ -152,7 +152,7 @@ public class EnemyMovement : MonoBehaviour
 
         if (fDist > m_fSpeed * Time.deltaTime)
         {
-            Debug.Log(string.Format("Dist/Range:{0}/{1}", fDist, m_Range));
+            //Debug.Log(string.Format("Dist/Range:{0}/{1}", fDist, m_Range));
             Debug.DrawRay(vPos, vDist, Color.red);
             transform.Translate(Vector3.forward * m_fSpeed * Time.deltaTime);
         }
@@ -168,7 +168,7 @@ public class EnemyMovement : MonoBehaviour
         int nUseIdx = nNextIdx % waypoints.Length; //0%2 = 0, 1%2= 1 , 2%2 = 0
         //m_objTarget = waypoints[nUseIdx].gameObject;
         SetTarget(waypoints[nUseIdx].gameObject);
-        Debug.Log(string.Format("ChageTarget[{0}/{1}]:{2}", nNextIdx, nUseIdx, m_objTarget.name));
+        //Debug.Log(string.Format("ChageTarget[{0}/{1}]:{2}", nNextIdx, nUseIdx, m_objTarget.name));
         if(navMeshAgent == null) 
             transform.LookAt(m_objTarget.transform);
         else
