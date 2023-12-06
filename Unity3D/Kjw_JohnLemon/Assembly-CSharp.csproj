@@ -77,6 +77,7 @@
     <Compile Include="Assets\Scripts\Observer.cs" />
     <Compile Include="Assets\Scripts\MoveBlock.cs" />
     <Compile Include="Assets\Scripts\ArcTrigger.cs" />
+    <Compile Include="Assets\Scripts\BillBoardWorldCanvas.cs" />
     <Compile Include="Assets\Scripts\PlayerMovement.cs" />
     <Compile Include="Assets\Scripts\ItemBox.cs" />
   </ItemGroup>
