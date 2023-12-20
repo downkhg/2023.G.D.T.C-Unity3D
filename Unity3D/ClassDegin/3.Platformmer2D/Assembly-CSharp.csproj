@@ -86,6 +86,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\ClassDiagram_GameManager.cd" />
+    <None Include="Assets\설명.txt" />
     <None Include="Assets\Scripts\ClassDiagram1.cd" />
     <None Include="Assets\WorkList.txt" />
     <None Include="Assets\ClassDiagram_GUI.cd" />
