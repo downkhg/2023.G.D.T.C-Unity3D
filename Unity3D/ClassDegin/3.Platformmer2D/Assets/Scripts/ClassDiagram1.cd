@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Eagle">
+    <Position X="0.75" Y="0.5" Width="1.5" />
+    <NestedTypes>
+      <Enum Name="Eagle.E_AI_STATE" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\Scripts\Eagle.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>BAUEAAIAAgAAgAAAAAAEJBABAEAAAAQAAAABIABAABA=</HashCode>
+      <FileName>Assets\Scripts\Eagle.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="맑은 고딕" Size="9" />
+</ClassDiagram>

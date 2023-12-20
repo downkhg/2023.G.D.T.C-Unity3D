@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Bullet" Collapsed="true">
+    <Position X="8.25" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAABAAKCACAAAAAAAAAAAAMAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Bullet.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CameraTracker" Collapsed="true">
+    <Position X="10" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\CameraTracker.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DeathZone" Collapsed="true">
+    <Position X="11.75" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\DeathZone.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DeathZoneObject" Collapsed="true">
+    <Position X="13.5" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\DeathZoneObject.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dynamic">
+    <Position X="3.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQIAQDAAqACAAgAAAAAAAgBAMAAAAAAAQCgBAABAAA=</HashCode>
+      <FileName>Assets\Scripts\Dynamic.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Eagle">
+    <Position X="10.75" Y="4" Width="1.5" />
+    <NestedTypes>
+      <Enum Name="Eagle.E_AI_STATE" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\Scripts\Eagle.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>BAUEAAIAAjAAgAAAAAAEJBABAIAAAAQAAAABIABAAAA=</HashCode>
+      <FileName>Assets\Scripts\Eagle.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameManager">
+    <Position X="1" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgQEAAAAACgQAAIAAEAACEAABEBQAECAAIAAEAACAQA=</HashCode>
+      <FileName>Assets\Scripts\GameManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gun" Collapsed="true">
+    <Position X="13.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAUQAAAAAqAAAAAAAAAAAEAIAoFIAAAAEAAAAAACCQA=</HashCode>
+      <FileName>Assets\Scripts\Gun.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Item">
+    <Position X="5.25" Y="1.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Enum Name="Item.ITEM_KIND">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\Scripts\Item.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAAgAAAAAAAAAAEAEAAAAAAAAAQAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Item.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ItemIventory" Collapsed="true">
+    <Position X="14.75" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AARAAAAAACABAAAAAAAAAAAAAAAAAAAAAECAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\ItemIventory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MobileController" Collapsed="true">
+    <Position X="11.75" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAIEAAACEAAAAAAEAAAAAAAAAAAAAACAAAAAAAACA=</HashCode>
+      <FileName>Assets\Scripts\MobileController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Opossum">
+    <Position X="12.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAiAAAAAAAAAAAAABAIAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Opossum.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Player">
+    <Position X="16.75" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAQRAAAAACEASQAAABAIAAAAAIgAAAAoCACCAIAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Player.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Responner">
+    <Position X="14.75" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAgAAEAAAAAAAAAAAAAgAAAAAAIAAAAQA=</HashCode>
+      <FileName>Assets\Scripts\Responner.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperMode" Collapsed="true">
+    <Position X="6.5" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAgAAAAAAAQAAAAQAAAAAAAAAAAAAAAQA=</HashCode>
+      <FileName>Assets\Scripts\SuperMode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Timmer" Collapsed="true">
+    <Position X="11" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAABAAAAAAAAAAAAAAAAAAoAAAAAQAAAA=</HashCode>
+      <FileName>Assets\Scripts\Timmer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="PlayerStatus">
+    <Position X="16.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAEAgAQAEAAAAAAAAAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Player.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Font Name="맑은 고딕" Size="9" />
+</ClassDiagram>
