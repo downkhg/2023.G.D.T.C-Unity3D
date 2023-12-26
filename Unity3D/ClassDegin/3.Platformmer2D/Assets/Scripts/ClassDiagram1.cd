@@ -1,18 +1,71 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="Eagle">
-    <Position X="0.75" Y="0.5" Width="1.5" />
+  <Class Name="SuperModeEffect" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="2.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>Assets\Scripts\EffectDataManager.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="RecoryEffect" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="0.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAEAAABAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\EffectDataManager.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="BulletEffect" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="0.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\EffectDataManager.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="LaserEffect" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="4" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\EffectDataManager.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="EffectDataManager" Collapsed="true">
+    <Position X="2.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQACAAEACAAAAAAAAAAAAAAAAAQAAAAAAAAABAAAAA=</HashCode>
+      <FileName>Assets\Scripts\EffectDataManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ItemData">
+    <Position X="0.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQACAAAAAAAIAAAAAAAAAAAAAAEAAEAAQAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\ItemDataManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ItemDataManager">
+    <Position X="2.25" Y="3" Width="2.75" />
     <NestedTypes>
-      <Enum Name="Eagle.E_AI_STATE" Collapsed="true">
+      <Enum Name="ItemDataManager.E_ITEMDATA" Collapsed="true">
         <TypeIdentifier>
-          <NewMemberFileName>Assets\Scripts\Eagle.cs</NewMemberFileName>
+          <NewMemberFileName>Assets\Scripts\ItemDataManager.cs</NewMemberFileName>
         </TypeIdentifier>
       </Enum>
     </NestedTypes>
     <TypeIdentifier>
-      <HashCode>BAUEAAIAAgAAgAAAAAAEJBABAEAAAAQAAAABIABAABA=</HashCode>
-      <FileName>Assets\Scripts\Eagle.cs</FileName>
+      <HashCode>AAQAAAAAACAgAAAAAAAAAAAAAAAABAABgAAAABgAAAA=</HashCode>
+      <FileName>Assets\Scripts\ItemDataManager.cs</FileName>
     </TypeIdentifier>
   </Class>
+  <Interface Name="IEffect" Collapsed="true">
+    <Position X="4" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\EffectDataManager.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
   <Font Name="맑은 고딕" Size="9" />
 </ClassDiagram>

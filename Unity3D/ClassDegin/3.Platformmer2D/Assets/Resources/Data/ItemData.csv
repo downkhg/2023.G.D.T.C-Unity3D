@@ -3,4 +3,3 @@ id,Name,Comment,ItemEffect,Icon,fx,object
 2,체리,체력을 모두 회복한다.,2,cherry,eat_eff,recover_cherry_obj
 3,총알,총알 1개씩 발사한다.,3,bullet,hit_bullet,bullet_obj
 4,레이저,직선상에 적에게 데미지를 준다,4,laser_gem,hit_laser,laser_obj
-5,수류탄,수류탄을 던저 주변에 데미지를 준다,5,grenade,explosion_eff,grenade_obj

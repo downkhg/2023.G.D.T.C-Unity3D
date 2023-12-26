@@ -8,11 +8,9 @@ public class GUIItemButton : MonoBehaviour
     public Text textItemName;
     public Image imgItemSprite;
 
-    public bool Set(Item.ITEM_KIND item_kind)
+    public bool Set(ItemData itemData)
     {
-        Debug.Log("GUIItemButton.Set:" + item_kind);
-
-        ItemData itemData = GameManager.GetInstance().itemDataManager.GetItemData(item_kind);
+        Debug.Log("GUIItemButton.Set:" + itemData);
 
         if (itemData != null)
         {
@@ -20,16 +18,16 @@ public class GUIItemButton : MonoBehaviour
             Sprite sprite = Resources.Load<Sprite>("Image/" + itemData.icon);
             if (sprite) imgItemSprite.sprite = sprite;
             Button button = this.GetComponent<Button>();
-            button.onClick.AddListener(() => OnClickEvent(item_kind));
+            button.onClick.AddListener(() => OnClickEvent(itemData));
             return true;
         }
         return false;
     }
 
-    public void OnClickEvent(Item.ITEM_KIND item_kind)
+    public void OnClickEvent(ItemData itemData)
     {
-        Debug.Log("GUIItemButton.OnClickEvent:" + item_kind);
-        GameManager.GetInstance().EventItemUsePlayer(item_kind);
+        Debug.Log("GUIItemButton.OnClickEvent:" + itemData);
+        GameManager.GetInstance().EventItemUsePlayer(itemData);
     }
 
     // Start is called before the first frame update

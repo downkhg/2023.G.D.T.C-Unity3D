@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -23,24 +22,25 @@ public class GameManager : MonoBehaviour
 
     public GUIManager guiManager;
     public ItemDataManager itemDataManager;
+    public EffectDataManager effectDataManager;
 
-    public void EventEatItem(Item.ITEM_KIND item_kind)
+    public void EventEatItem(ItemData itemData)
     {
-        itemIventory.SetIventory(item_kind);
+        itemIventory.SetIventory(itemData);
     }
 
-    public void EventItemUse(Item.ITEM_KIND item_kind, GameObject obj)
+    public void EventItemUse(ItemData itemData, GameObject obj)
     {
-        Item.Use(item_kind, obj);
-        itemIventory.RemoveIventory(item_kind);
+        itemData.item_effect.Use(obj);
+        itemIventory.RemoveIventory(itemData);
     }
 
-    public void EventItemUsePlayer(Item.ITEM_KIND item_kind)
+    public void EventItemUsePlayer(ItemData itemData)
     {
         if (responnerPlayer.objPlayer)
         {
-            Item.Use(item_kind, responnerPlayer.objPlayer);
-            itemIventory.RemoveIventory(item_kind);
+            itemData.item_effect.Use(responnerPlayer.objPlayer);
+            itemIventory.RemoveIventory(itemData);
         }
     }
 
@@ -56,24 +56,17 @@ public class GameManager : MonoBehaviour
     static GameManager instance;
     public static GameManager GetInstance()
     {
-        //instance = this; //객체가 없을때도 호출되어야하므로, this를 가져올수없다.
         return instance;
     }
-
-    //싱글톤의 전통적인 방식을 이용하여 활용하려고하면 모노비헤이비어를 상속받아 구현해야하는데, 이 경우 생성자를 정의 하면 사용이 불가능하다.
-    //GameManager()
-    //{
-    //    instance = this;
-    //    Debug.Log(this.gameObject.ToString());
-    //}
 
     // Start is called before the first frame update
     void Start()
     {
-        //instance = this;
+        instance = this;
         textVer.text = strVer;
-        //itemDataManager.InitItemData();
-        itemDataManager.InitItemDataAsset();
+        //itemDataManager.InitItemData(effectDataManager);
+        effectDataManager.InitEffectData();
+        itemDataManager.InitItemDataAsset(effectDataManager);
     }
 
     // Update is called once per frame

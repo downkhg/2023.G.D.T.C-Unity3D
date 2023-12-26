@@ -8,36 +8,18 @@ public class GUIIemIventory : MonoBehaviour
     public List<GUIItemButton> listItemButtens;
     public RectTransform rectContent;
 
-    public void AddButton(Item.ITEM_KIND item_kind) //기존에 생성된 프리팹정보를 이용하여 초기화
-    {
-        GameObject prefab = Resources.Load("Prefabs/GUI/" + item_kind.ToString()) as GameObject;
-        GameObject objButton = Instantiate(prefab, rectContent.transform);
-        GUIItemButton guiItemButton = objButton.GetComponent<GUIItemButton>();
-        guiItemButton.Set(item_kind);
-        listItemButtens.Add(guiItemButton);
-    }
-
-    public void AddButton(Item.ITEM_KIND item_kind, GameObject prefab) //기존에 생성된 프리팹정보를 이용하여 초기화
+    public void AddButton(ItemData itemData, GameObject prefab) //기존에 생성된 프리팹정보를 이용하여 초기화
     {
         //GameObject prefab = Resources.Load("Prefabs/GUI/" + item_kind.ToString()) as GameObject;
         GameObject objButton = Instantiate(prefab, rectContent.transform);
         GUIItemButton guiItemButton = objButton.GetComponent<GUIItemButton>();
-        guiItemButton.Set(item_kind);
+        guiItemButton.Set(itemData);
         listItemButtens.Add(guiItemButton);
     }
 
     public void RemoveButton(GUIItemButton guiItemButton)
     {
         listItemButtens.Remove(guiItemButton);
-    }
-
-    public void SetIventoryPrefabs(ItemIventory itemIventory)
-    {
-        foreach(var item in itemIventory.listItems)
-        {
-            AddButton(item);
-        }
-        ResizeContent();
     }
 
     public void SetIventory(ItemIventory itemIventory)

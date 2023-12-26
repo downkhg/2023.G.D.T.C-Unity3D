@@ -122,9 +122,8 @@ public class Eagle : MonoBehaviour
             Vector3 vDist = vTargetPos - vPos;
             Vector3 vDir = vDist.normalized;
             float fDist = vDist.magnitude;
-            float fFPSMove = Speed * Time.deltaTime; 
-            //if (fDist > Speed * Time.deltaTime)
-            if (fDist > fFPSMove) //프레임당 이동거리만큼 보정을해서 흔들리지않도록함.
+
+            if (fDist > Speed * Time.deltaTime)
             {
                 transform.position += vDir * Speed * Time.deltaTime;
                 isMove = true;

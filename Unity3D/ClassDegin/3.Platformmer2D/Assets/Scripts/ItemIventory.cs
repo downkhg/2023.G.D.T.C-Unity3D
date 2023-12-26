@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class ItemIventory : MonoBehaviour
 {
-    public List<Item.ITEM_KIND> listItems = new List<Item.ITEM_KIND>();
+    public List<ItemData> listItems = new List<ItemData>();
 
-    public void SetIventory(Item.ITEM_KIND item)
+    public void SetIventory(ItemData item)
     {
         listItems.Add(item);
     }
 
-    public void RemoveIventory(Item.ITEM_KIND item)
+    public void RemoveIventory(ItemData item)
     {
         listItems.Remove(item);
     }
@@ -35,11 +35,14 @@ public class ItemIventory : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        SetIventory(Item.ITEM_KIND.BULLET);
-        SetIventory(Item.ITEM_KIND.LASER);
-        SetIventory(Item.ITEM_KIND.RECOVERY);
+        ItemDataManager itemDataManager = GameManager.GetInstance().itemDataManager;
+
+        SetIventory(itemDataManager.GetItemData(ItemDataManager.E_ITEMDATA.BULLET));
+        SetIventory(itemDataManager.GetItemData(ItemDataManager.E_ITEMDATA.SUPER_MODE));
+        SetIventory(itemDataManager.GetItemData(ItemDataManager.E_ITEMDATA.LASER));
+        SetIventory(itemDataManager.GetItemData(ItemDataManager.E_ITEMDATA.CHERRY));
         //SetIventory(Item.ITEM_KIND.GRENADE);
-        SetIventory(Item.ITEM_KIND.SUPER_MODE);
+       
     }
 
     // Update is called once per frame
