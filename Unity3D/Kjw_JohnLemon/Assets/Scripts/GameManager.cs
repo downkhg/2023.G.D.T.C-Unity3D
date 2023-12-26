@@ -150,10 +150,12 @@ public class GameManager : MonoBehaviour
         return m_cInstance;
     }
 
+    
+
 
     private void Awake()
     {
-        m_cInstance = this;
+        //m_cInstance = this;
         m_cItemManager.Init();
         m_cPlayerManager.Init();
 
