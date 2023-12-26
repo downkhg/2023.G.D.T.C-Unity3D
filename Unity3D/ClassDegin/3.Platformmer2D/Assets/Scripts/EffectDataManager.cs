@@ -5,6 +5,7 @@ using UnityEngine;
 public interface IEffect
 {
     void Use(GameObject obj);
+    //virtual void Use(GameObject obj);//인터페이스에서는 virtual키워드가 없어도 모든 멤버함수가 virtual된다.
 }
 
 public class SuperModeEffect : IEffect
