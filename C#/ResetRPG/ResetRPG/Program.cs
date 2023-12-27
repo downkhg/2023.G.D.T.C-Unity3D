@@ -46,9 +46,9 @@ namespace ResetRPG
             
             DataManager dataManager = new DataManager();
 
-            dataManager.Load();
-            //dataManager.Init();
-            //dataManager.Save();
+            //dataManager.Load();
+            dataManager.Init();
+            dataManager.Save();
 
             Player npc = new Player("store", 100, 20, 10, 0);
 

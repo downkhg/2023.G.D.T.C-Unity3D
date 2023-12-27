@@ -39,7 +39,7 @@ public:
 };
 //정적멤버 변수는 객체가 생성되기전부터 생성되어야하므로,
 //프로그램이 종료될때까지 메모리가 유지되어야한다.(전역변수)
-//SingleObject* SingleObject::m_pInstance;
+SingleObject* SingleObject::m_pInstance;
 
 //싱글톤: 클래스의 인스턴스가 1개이상 존재 할수없는 클래스를 만드는 기법.(생성자 은닉,정적멤버)
 int main()
