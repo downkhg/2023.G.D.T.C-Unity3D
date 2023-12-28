@@ -18,9 +18,9 @@ enum WM_MSG { CREATE, COMMOND, PAINT, DESTROY, MAX };
 string strMSG[MAX] = { "CREATE","COMMOND","PAINT","DESTROY" };
 
 bool g_bLoop = true;
-queue<int> g_queMsg;
 
-void TestQueueMain()
+
+void TestQueueMain(queue<int> g_queMsg)
 {
 	g_queMsg.push(WM_MSG::CREATE);
 	g_queMsg.push(WM_MSG::COMMOND);
@@ -39,16 +39,26 @@ void TestQueueMain()
 //arg를 통해 외부의 데이터값을 받을수있다.
 unsigned int WINAPI WndProc(void* arg)
 {
+	
 	cout << "arg:" << arg << endl;
-	int* pData = (int*)arg;
+	//int* pData = (int*)arg;
+	//int* pData = 0;// = &g_queMsg.front();
+	queue<int>* pQueue = (queue<int>*)arg;
 
 	while (g_bLoop)
 	{
-		switch (*pData)
+		int nMsg = 0;
+		if (pQueue->empty() == false)
+		{
+			nMsg = pQueue->front();
+			pQueue->pop();
+		}
+
+		switch (nMsg)
 		{
 		case CREATE:
 			cout << "초기화" << endl;
-			*pData = COMMOND;
+			pQueue->push(WM_MSG::COMMOND);
 			break;
 		case COMMOND:
 			cout << "명령을 입력하세요." << endl;
@@ -66,6 +76,7 @@ unsigned int WINAPI WndProc(void* arg)
 		default:
 			break;
 		}
+
 		Sleep(2000);
 	}
 	return 0;
@@ -75,9 +86,10 @@ int WinAPIDemoMain()
 {
 	HANDLE hThread = NULL;
 	DWORD dwThreadID = NULL;
-
+	queue<int> g_queMsg;
 	int nMSG = CREATE;
 	cout << "Msg:" << &nMSG << endl;
+	g_queMsg.push(nMSG);
 	//프로세스: 프로그램의 가장 기본적인 처리를 당담하는 흐름단위(메인루프), 큰흐름단위.
 	//스레드: 프로세스 내부에 처리를 하는 흐름단위(반복문을 동시에 처리가능), 큰흐름 하위의 작은 흐름.
 	//스레드는 프로그램 내부에서 처리하는 내용을 변경할수 있어야하므로, 
@@ -85,12 +97,13 @@ int WinAPIDemoMain()
 	//콜백함수: 프로세스내에서 호출하지않고, 외부에서 호출하도록 하는 함수.
 	hThread = (HANDLE)_beginthreadex(NULL, 0,
 		WndProc,
-		(void*)&nMSG, 0,
+		(void*)&g_queMsg, 0,
 		(unsigned int*)dwThreadID);
 
 	while (g_bLoop)
 	{
 		scanf_s("%d", &nMSG);
+		g_queMsg.push(nMSG);
 	}
 
 	return 0;
@@ -102,6 +115,6 @@ int WinAPIDemoMain()
 //2. 큐를 main의 지역변수로 만들어서 동일한 과정이 가능하도록 처리하기.
 int main()
 {
-	TestQueueMain();
-	//WinAPIDemoMain();
+	//TestQueueMain();
+	WinAPIDemoMain();
 }
