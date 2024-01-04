@@ -53,16 +53,20 @@ void main()
 	SNode* pFind = FindNodeData(pBegin, 40);
 	if (pFind != NULL)
 		printf("Find:%d\n", pFind->nData);
-
-	pEnd = InsertNodeData(pBegin, 30, 60);//노드 삽입
+	//노드를 삽입했으므로 일반적으로 삽입된 노드의 주소값을 반환하는 것이 일반적인 인터페스다.
+	//End는 연결리스트의 끝이므로, 변경이 되면 안된다.
+	SNode* pInsert = InsertNodeData(pBegin, 30, 60);//노드 삽입
+	if (pInsert != NULL)
+		printf("Insert:%d\n", pInsert->nData);
 
 	PrintLinkedList(pBegin);
 
 	DeleteNodeData(pBegin, 60);//노드 삭제
 
 	PrintLinkedList(pBegin);
-
-	DeleteLinkedList(pBegin); //모든노드삭제 - 이 함수를 호출하지않을시 메모리가 누수됨.
+	DeleteLinkedListRef(pBegin);
+	DeleteLinkedListDoublePtr(&pBegin); //모든노드삭제 - 이 함수를 호출하지않을시 메모리가 누수됨.
+	//DeleteLinkedList(pBegin); //모든노드삭제 - 이 함수를 호출하지않을시 메모리가 누수됨.
 }
 
 //여기서 부터 기능을 구현한다.
@@ -83,7 +87,16 @@ SNode* CreateNode(SNode* pNode, int data)
 SNode* FindNodeData(SNode* pStart, int data)
 {
 	SNode* pNode = pStart;
-
+	while (pNode)
+	{
+		if (pNode->nData != data) //20 == 40 ->F
+			pNode = pNode->pNext;
+		else
+			break;
+	}
+	//if (pNode->nData != data) //30 == 40 -> F
+	//	pNode = pNode->pNext;
+	//if (pNode->nData == data) //40 == 40 -> T
 	return pNode;
 }
 
@@ -94,7 +107,12 @@ SNode* InsertNodeData(SNode* pStart, int data, int insert)
 
 	pNode = FindNodeData(pStart, data);
 
-	return pNode;
+	pInsert = new SNode();
+	pInsert->nData = insert;
+	pInsert->pNext = pNode->pNext;
+	pNode->pNext = pInsert;
+
+	return pInsert;
 }
 
 void DeleteNodeData(SNode* pStart, int del)
@@ -102,7 +120,19 @@ void DeleteNodeData(SNode* pStart, int del)
 	SNode* pPre = NULL;
 	SNode* pNode = pStart;
 
-
+	while (pNode)
+	{
+		if (pNode->nData != del) //20 == 40 ->F
+		{
+			pPre = pNode;
+			pNode = pNode->pNext;
+		}
+		else
+		{
+			pPre->pNext = pNode->pNext;
+			delete pNode;
+		}
+	}	
 }
 
 void PrintLinkedList(SNode* pStart)
@@ -124,6 +154,46 @@ void DeleteLinkedList(SNode* pStart)
 {
 	SNode* pNode = pStart;
 	SNode* pDel = NULL;
+
+	while (pNode)
+	{
+		pDel = pNode;
+		pNode = pNode->pNext;
+		delete pDel;
+	}
+
+	pStart = NULL; //지역변수인 스타트에 null을 초기화하여도 원본인 begin의 값은 변경되지않는다.
+}
+
+void DeleteLinkedListRef(SNode*& pStart)
+{
+	SNode* pNode = pStart;
+	SNode* pDel = NULL;
+
+	while (pNode)
+	{
+		pDel = pNode;
+		pNode = pNode->pNext;
+		delete pDel;
+	}
+
+	pStart = NULL; //포인터의 참조자를 받았으므로, 참조되는 begin의 값을 변경할 수 있다,
+}
+
+
+void DeleteLinkedListDoublePtr(SNode** pStart)
+{
+	SNode* pNode = *pStart;
+	SNode* pDel = NULL;
+
+	while (pNode)
+	{
+		pDel = pNode;
+		pNode = pNode->pNext;
+		delete pDel;
+	}
+
+	*pStart = NULL;
 }
 
 void InputAdd()
