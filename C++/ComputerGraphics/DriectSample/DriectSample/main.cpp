@@ -70,8 +70,8 @@ HRESULT InitD3D(HWND hWnd)
 	g_pd3dDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE); //컬링을끈다.
 
 
-	g_pd3dDevice->SetRenderState(D3DRS_ZENABLE, TRUE); // Z버퍼기능을 켠다.
-	//g_pd3dDevice->SetRenderState(D3DRS_ZENABLE, FALSE); // Z버퍼기능을 끈다.
+	//g_pd3dDevice->SetRenderState(D3DRS_ZENABLE, TRUE); // Z버퍼기능을 켠다.
+	g_pd3dDevice->SetRenderState(D3DRS_ZENABLE, FALSE); // Z버퍼기능을 끈다.
 
 	return S_OK;
 }
@@ -187,12 +187,12 @@ VOID SetupLights()
 	ZeroMemory(&light, sizeof(D3DLIGHT9));			/// 구조체를 0으로 지운다.
 	light.Type = D3DLIGHT_DIRECTIONAL;			/// 광원의 종류(점 광원,방향성 광원,스포트라이트)
 	light.Diffuse.r = 1.0f;							/// 광원의 색깔과 밝기
-	light.Diffuse.g = 1.0f;
-	light.Diffuse.b = 1.0f;
+	light.Diffuse.g = 0.0f;
+	light.Diffuse.b = 0.0f;
 	/*vecDir = vecDir(cosf(timeGetTime() / 350.0f),	/// 광원의 방향
 		1.0f,
 		sinf(timeGetTime() / 350.0f));*/
-	vecDir = D3DXVECTOR3(0, 0, 1);
+	vecDir = D3DXVECTOR3(0, 0, -1);
 	D3DXVec3Normalize((D3DXVECTOR3*)&light.Direction, &vecDir);	/// 광원의 방향을 단위벡터로 만든다.
 
 	light.Range = 1000.0f;									/// 광원이 다다를수 있는 최대거리
